@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DJT — The Forensic Case for Zero: A Short-Seller's Dossier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@300;400;500;700&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #0c0c0e;
+    --bg2:       #111114;
+    --surface:   #131316;
+    --surface2:  #1a1a1f;
+    --border:    rgba(255,255,255,0.06);
+    --border2:   rgba(255,255,255,0.11);
+    --red:       #e03535;
+    --red-dim:   rgba(224,53,53,0.10);
+    --red-b:     rgba(224,53,53,0.28);
+    --red-dark:  #ff6060;
+    --amber:     #d4870f;
+    --amber-dim: rgba(212,135,15,0.10);
+    --amber-b:   rgba(212,135,15,0.28);
+    --green:     #2e9e6a;
+    --green-dim: rgba(46,158,106,0.10);
+    --ink:       #e8e4dc;
+    --ink-dim:   #888480;
+    --ink-light: #555250;
+    --white:     #ffffff;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Libre Caslon Text', Georgia, serif;
+    font-size: 15.5px;
+    line-height: 1.78;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE */
+  body::before {
+    content:'';
+    position:fixed; inset:0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events:none; z-index:0;
+  }
+
+  /* ─── ALERT BANNER ─── */
+  .alert-banner {
+    background: var(--red);
+    padding: 9px 52px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+  }
+  .ab-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    color: #fff;
+    background: rgba(0,0,0,0.25);
+    padding: 2px 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .ab-scroll {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    color: rgba(255,255,255,0.9);
+    white-space: nowrap;
+    overflow: hidden;
+    flex: 1;
+  }
+  .ab-inner {
+    display: inline-flex;
+    gap: 0;
+    animation: ticker 30s linear infinite;
+  }
+  .ab-item {
+    padding: 0 32px;
+    border-right: 1px solid rgba(255,255,255,0.2);
+  }
+  .ab-item b { color: #fff; margin-right: 5px; }
+  @keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+  /* ─── MASTHEAD ─── */
+  .masthead {
+    border-bottom: 2px solid var(--ink);
+    padding: 16px 52px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    position: relative; z-index: 2;
+  }
+  .pub-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.18em;
+    color: var(--ink);
+  }
+  .pub-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--ink-dim);
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 64px 52px 48px;
+    position: relative; z-index: 2;
+    border-bottom: 1px solid var(--border2);
+  }
+  .verdict-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--red);
+    border: 1.5px solid var(--red);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 14px;
+    margin-bottom: 26px;
+  }
+  .verdict-tag::before {
+    content: '▼';
+    font-size: 8px;
+  }
+  h1.headline {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(34px, 4.8vw, 62px);
+    font-weight: 800;
+    line-height: 1.0;
+    color: var(--ink);
+    max-width: 820px;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+  h1.headline em {
+    color: var(--red);
+    font-style: normal;
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 6px;
+  }
+  .deck {
+    font-family: 'Libre Caslon Text', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink-dim);
+    max-width: 660px;
+    line-height: 1.55;
+    margin-bottom: 36px;
+  }
+
+  /* ─── VERDICT STRIP ─── */
+  .verdict-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--border2);
+    border: 1px solid var(--border2);
+  }
+  .vc {
+    background: var(--surface);
+    padding: 16px 16px;
+    position: relative;
+  }
+  .vc::after {
+    content:''; position:absolute; bottom:0;left:0;right:0; height:3px;
+  }
+  .vc-r::after  { background:var(--red); }
+  .vc-a::after  { background:var(--amber); }
+  .vc-g::after  { background:var(--green); }
+  .vc-k::after  { background:var(--ink); }
+  .vc-gy::after { background:#999; }
+  .vc-lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 5px;
+  }
+  .vc-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .vc-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px;
+    margin-top: 4px;
+    color: var(--ink-light);
+  }
+  .vc-sub.bad { color: var(--red); }
+  .vc-sub.warn { color: var(--amber); }
+  .vc-sub.ok { color: var(--green); }
+
+  /* ─── LAYOUT ─── */
+  .main {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 52px 52px 0;
+    display: grid;
+    grid-template-columns: 1fr 296px;
+    gap: 52px;
+    align-items: start;
+    position: relative; z-index: 2;
+  }
+
+  /* ─── ARTICLE ─── */
+  .article h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 8px;
+    margin: 48px 0 16px;
+    letter-spacing: -0.02em;
+  }
+  .article h2:first-child { margin-top: 0; }
+  .article h2.red-head { border-color: var(--red); color: var(--red); }
+  .article p {
+    font-size: 15.5px;
+    line-height: 1.83;
+    color: var(--ink);
+    margin-bottom: 17px;
+  }
+  .article p strong { color: var(--red-dark); }
+
+  .pull {
+    font-family: 'Libre Caslon Text', serif;
+    font-style: italic;
+    font-size: 19.5px;
+    line-height: 1.45;
+    color: var(--red);
+    border-left: 4px solid var(--red);
+    padding: 10px 0 10px 22px;
+    margin: 30px 0;
+  }
+
+  /* ─── EVIDENCE BOXES ─── */
+  .evidence-box {
+    background: var(--red-dim);
+    border: 1px solid var(--red-b);
+    border-left: 4px solid var(--red);
+    padding: 16px 20px;
+    margin: 22px 0;
+  }
+  .eb-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 10px;
+  }
+  .eb-body {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink);
+    line-height: 1.7;
+  }
+  .eb-body strong { color: var(--red-dark); }
+
+  .amber-box {
+    background: var(--amber-dim);
+    border: 1px solid var(--amber-b);
+    border-left: 4px solid var(--amber);
+    padding: 16px 20px;
+    margin: 22px 0;
+  }
+  .amber-box .eb-title { color: var(--amber); }
+
+  /* ─── DETERIORATION TABLE ─── */
+  .det-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    border: 1px solid var(--border2);
+    margin: 18px 0;
+  }
+  .det-table thead th {
+    background: #1e1e24;
+    color: #e8e4dc;
+    font-size: 8.5px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    padding: 10px 13px;
+    text-align: left;
+    white-space: nowrap;
+  }
+  .det-table tbody tr { border-bottom: 1px solid var(--border); }
+  .det-table tbody tr:last-child { border-bottom: none; }
+  .det-table tbody tr:nth-child(even) { background: var(--surface2); }
+  .det-table td { padding: 9px 13px; color: var(--ink); }
+  .det-table td.bad   { color: var(--red); font-weight: 700; }
+  .det-table td.warn  { color: var(--amber); font-weight: 700; }
+  .det-table td.ok    { color: var(--green); font-weight: 700; }
+  .det-table td.label { font-weight: 700; color: var(--ink); }
+
+  /* ─── DEBT CLOCK / BIG NUMBERS ─── */
+  .big-stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border2);
+    border: 1px solid var(--border2);
+    margin: 22px 0;
+  }
+  .bs-cell {
+    background: var(--surface);
+    padding: 20px 18px;
+    text-align: center;
+  }
+  .bs-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .bs-num.red   { color: var(--red); }
+  .bs-num.amber { color: var(--amber); }
+  .bs-num.ink   { color: var(--ink); }
+  .bs-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 4px;
+  }
+  .bs-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    color: var(--ink-dim);
+    line-height: 1.5;
+  }
+
+  /* ─── DILUTION CHART ─── */
+  .dilution-bars {
+    margin: 18px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .dbar-row { display: flex; align-items: center; gap: 12px; }
+  .dbar-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-dim);
+    width: 60px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .dbar-bg {
+    flex: 1;
+    height: 22px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    position: relative;
+  }
+  .dbar-fill {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+  }
+
+  /* ─── SCENARIOS ─── */
+  .scenarios {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border2);
+    border: 1px solid var(--border2);
+    margin: 22px 0;
+  }
+  .sc-card { background: var(--surface); padding: 20px 17px; }
+  .sc-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .sc-bull { color: var(--amber); }
+  .sc-base { color: var(--red); }
+  .sc-bear { color: var(--red-dark); }
+  .sc-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  .sc-prob {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 50px;
+    line-height: 1;
+    margin: 6px 0 2px;
+  }
+  .sc-plbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 14px;
+  }
+  .sc-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    border-bottom: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+  }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-k { color: var(--ink-dim); }
+
+  /* ─── OPTIONS TABLE ─── */
+  .opts-tbl {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    border: 1px solid var(--border2);
+    margin: 14px 0;
+  }
+  .opts-tbl thead th {
+    background: #1e1e24;
+    color: #e8e4dc;
+    font-size: 8px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    padding: 9px 11px;
+    text-align: left;
+    white-space: nowrap;
+  }
+  .opts-tbl tbody tr { border-bottom: 1px solid var(--border); }
+  .opts-tbl tbody tr:hover { background: var(--surface2); }
+  .opts-tbl tbody tr:last-child { border-bottom: none; }
+  .opts-tbl td { padding: 9px 11px; }
+  .td-ticker { font-weight: 700; color: var(--red-dark); }
+  .td-bad    { color: var(--red); font-weight: 700; }
+  .td-warn   { color: var(--amber); }
+  .td-ok     { color: var(--green); }
+
+  /* ─── GREEKS ─── */
+  .greeks-panel {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-top: 3px solid var(--red);
+    padding: 18px 22px;
+    margin: 22px 0;
+  }
+  .gp-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+  .greeks-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .gk-sym {
+    font-family: 'Libre Caslon Text', serif;
+    font-style: italic;
+    font-size: 26px;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+  .gk-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 6px;
+  }
+  .gk-desc {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    color: var(--ink-dim);
+    line-height: 1.55;
+  }
+  .gk-note {
+    font-size: 9px;
+    color: var(--red);
+    margin-top: 5px;
+    font-style: italic;
+  }
+
+  /* ─── STRAT HEADER ─── */
+  .strat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #e8e4dc;
+    background: #1e1e24;
+    border: 1px solid var(--border2);
+    display: inline-block;
+    padding: 4px 12px;
+    margin: 18px 0 6px;
+  }
+  .strat-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+  .ann {
+    display: flex;
+    gap: 10px;
+    background: var(--bg2);
+    border-left: 2px solid var(--ink);
+    padding: 10px 14px;
+    margin: 4px 0 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-dim);
+    line-height: 1.6;
+  }
+  .ann.ann-r { border-left-color: var(--red); }
+  .ann-tag {
+    font-size: 7.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    white-space: nowrap;
+    padding-top: 1px;
+  }
+  .ann.ann-r .ann-tag { color: var(--red); }
+
+  .conclusion {
+    background: #1e0a0a;
+    padding: 32px 36px;
+    margin-top: 48px;
+    position: relative;
+  }
+  .conclusion::before {
+    content:''; position:absolute; top:0;left:0;right:0; height:3px;
+    background: var(--red);
+  }
+  .conclusion h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+  .conclusion p { font-size: 14.5px; line-height: 1.85; color: rgba(255,255,255,0.78); margin-bottom: 0; }
+  .conclusion strong { color: #fff; }
+
+  /* ─── SIDEBAR ─── */
+  .sidebar { position: sticky; top: 24px; }
+  .sb-card {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    margin-bottom: 16px;
+  }
+  .sb-head {
+    background: #1e1e24;
+    padding: 9px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #e8e4dc;
+  }
+  .sb-head.red-head { background: var(--red); }
+  .sb-body { padding: 14px; }
+  .sb-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 5.5px 0;
+    border-bottom: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+  }
+  .sb-row:last-child { border-bottom: none; }
+  .sb-k { color: var(--ink-light); font-size: 8.5px; }
+  .sb-v { color: var(--ink); font-weight: 700; }
+  .sb-v.bad  { color: var(--red); }
+  .sb-v.warn { color: var(--amber); }
+  .sb-v.ok   { color: var(--green); }
+
+  /* RISK BARS */
+  .risk-wrap { padding: 12px 14px 14px; }
+  .risk-row { margin-bottom: 11px; }
+  .risk-row:last-child { margin-bottom: 0; }
+  .risk-top {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--ink-dim);
+    margin-bottom: 4px;
+  }
+  .risk-top .severity { font-weight: 700; color: var(--red); }
+  .risk-top .severity.warn { color: var(--amber); }
+  .risk-bg { height: 4px; background: var(--bg2); border: 1px solid var(--border); }
+  .risk-fill { height: 100%; background: var(--red); }
+  .risk-fill.amber { background: var(--amber); }
+
+  /* ─── FOOTNOTE ─── */
+  .footnote {
+    max-width: 1140px;
+    margin: 64px auto 0;
+    padding: 24px 52px;
+    border-top: 1px solid var(--border2);
+    position: relative; z-index: 2;
+  }
+  .fn-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 8px;
+  }
+  .footnote p {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    color: var(--ink-light);
+    line-height: 1.75;
+    margin-bottom: 6px;
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border2); }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(16px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  .hero    { animation: fadeUp 0.5s ease both 0.05s; }
+  .verdict-strip { animation: fadeUp 0.5s ease both 0.15s; }
+
+  /* ─── RESPONSIVE ─── */
+  @media(max-width:900px){
+    .main { grid-template-columns:1fr; }
+    .sidebar { position:static; }
+    .hero,.main,.footnote { padding-left:22px; padding-right:22px; }
+    .greeks-grid { grid-template-columns:repeat(2,1fr); }
+    .scenarios { grid-template-columns:1fr; }
+  }
+
+  .sep { border:none; border-top:1px solid var(--border2); margin:44px 0; }
+  .table-scroll { overflow-x:auto; }
+  .fine-print {
+    font-family:'JetBrains Mono',monospace;
+    font-size:9px; color:var(--ink-light);
+    margin-top:-6px; line-height:1.55;
+  }
+  .verdict-strip-wrap {
+    max-width:1140px; margin:0 auto;
+    padding:0 52px 48px;
+    position:relative; z-index:2;
+  }
+</style>
+</head>
+<body>
+
+<!-- ALERT BANNER -->
+<div class="alert-banner">
+  <div class="ab-label">SHORT ALERT</div>
+  <div class="ab-scroll">
+    <div class="ab-inner">
+      <div class="ab-item"><b>DJT</b> $10.27 ▼ −62.9% YoY</div>
+      <div class="ab-item"><b>ALTMAN Z-SCORE</b> 2.57 — BANKRUPTCY RISK ZONE</div>
+      <div class="ab-item"><b>PIOTROSKI F-SCORE</b> 1/9 — CRITICALLY WEAK</div>
+      <div class="ab-item"><b>REVENUE Q3 2025</b> $972K — DECLINING</div>
+      <div class="ab-item"><b>SHARE DILUTION</b> +75.6% shares in 12 months</div>
+      <div class="ab-item"><b>BITCOIN TREASURY</b> BTC −22% YTD · $582M markdowns</div>
+      <div class="ab-item"><b>CRO TOKENS</b> $51M unrealized loss · 7.8¢ vs 15.3¢ cost</div>
+      <div class="ab-item"><b>TAE FUSION</b> Zero commercial-scale fusion exists anywhere</div>
+      <div class="ab-item"><b>TRUTH SOCIAL DAU</b> ~359K — No monetizable scale</div>
+      <div class="ab-item"><b>IV 30D</b> 69.68% — Puts pricing extreme downside</div>
+      <div class="ab-item"><b>DJT</b> $10.27 ▼ −62.9% YoY</div>
+      <div class="ab-item"><b>ALTMAN Z-SCORE</b> 2.57 — BANKRUPTCY RISK ZONE</div>
+      <div class="ab-item"><b>PIOTROSKI F-SCORE</b> 1/9 — CRITICALLY WEAK</div>
+      <div class="ab-item"><b>REVENUE Q3 2025</b> $972K — DECLINING</div>
+      <div class="ab-item"><b>SHARE DILUTION</b> +75.6% shares in 12 months</div>
+      <div class="ab-item"><b>BITCOIN TREASURY</b> BTC −22% YTD · $582M markdowns</div>
+    </div>
+  </div>
+</div>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="pub-name">Forensic Equity Research &nbsp;/&nbsp; Short-Side Analysis</div>
+  <div class="pub-date">Tuesday, March 10, 2026 &nbsp;|&nbsp; NASDAQ: DJT &nbsp;|&nbsp; RATING: STRONG SELL</div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="verdict-tag">Strong Sell · Short Thesis · Bankruptcy Risk</div>
+  <h1 class="headline">The Case for <em>Zero:</em><br>A Forensic Short<br>Dossier on DJT</h1>
+  <p class="deck">Six independent lines of evidence — declining revenue, catastrophic dilution, a failing bitcoin treasury, an Altman Z-Score in the bankruptcy zone, 359,000 daily users, and a $6 billion speculative fusion bet — converge on a single conclusion: Trump Media's operating business is terminally broken.</p>
+</div>
+
+<!-- VERDICT STRIP -->
+<div class="verdict-strip-wrap">
+  <div class="verdict-strip">
+    <div class="vc vc-r">
+      <div class="vc-lbl">Altman Z-Score</div>
+      <div class="vc-val">2.57</div>
+      <div class="vc-sub bad">Below 3.0 = Bankruptcy Zone</div>
+    </div>
+    <div class="vc vc-r">
+      <div class="vc-lbl">Piotroski F-Score</div>
+      <div class="vc-val">1 / 9</div>
+      <div class="vc-sub bad">Critically distressed (0–2)</div>
+    </div>
+    <div class="vc vc-r">
+      <div class="vc-lbl">Revenue Q3 2025</div>
+      <div class="vc-val">$972K</div>
+      <div class="vc-sub bad">▼ −4% YoY · Still declining</div>
+    </div>
+    <div class="vc vc-a">
+      <div class="vc-lbl">Share Dilution (1Y)</div>
+      <div class="vc-val">+75.6%</div>
+      <div class="vc-sub warn">280M → shares outstanding</div>
+    </div>
+    <div class="vc vc-k">
+      <div class="vc-lbl">30-Day IV</div>
+      <div class="vc-val">69.68%</div>
+      <div class="vc-sub warn">Puts priced for further collapse</div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <article class="article">
+
+    <h2>The Thesis in One Paragraph</h2>
+
+    <p>Trump Media & Technology Group is a <strong>company with no viable operating business</strong>, a deteriorating financial structure, and a stock price that has declined 62.9% over twelve months and 83% from its all-time high — yet remains valued at $2.84 billion. The bull case rests entirely on the $2.5 billion balance sheet and the political brand premium. Both are eroding. Bitcoin — now the primary asset — has fallen 22% year-to-date. The $6 billion TAE fusion merger is a speculative bet on technology that has never produced commercial-scale energy anywhere in the world. The Truth Social spinoff, if completed, separates the only brand-attached asset from the remaining entity. What is left is a holding company with declining crypto assets, a social platform with 359,000 daily active users, and an <strong>Altman Z-Score of 2.57 — firmly in the distress zone.</strong></p>
+
+    <p>This report presents six independent lines of evidence for a continued and potentially terminal decline in DJT's equity value, along with a structured put options framework for expressing the thesis with defined risk and asymmetric reward.</p>
+
+    <!-- COUNT 1 -->
+    <h2 class="red-head">Evidence I — Revenue Is Not Just Small. It's Declining.</h2>
+
+    <p>The most fundamental problem with DJT is not that it generates little revenue — it is that revenue is going backwards. Full-year 2025 revenue came in at <strong>$3.68 million</strong>. Q3 2025 alone was just <strong>$972,000</strong>, a 4% year-over-year decline. The company has maintained a 0% three-year revenue growth rate. This is not a pre-revenue startup — it is a post-launch platform that has been operating for four years and cannot grow.</p>
+
+    <div class="big-stat-row">
+      <div class="bs-cell">
+        <div class="bs-label">Projected 2026 Revenue (Pitch Deck)</div>
+        <div class="bs-num amber">$3.67B</div>
+        <div class="bs-sub">Management's own 2023 projection for FY2026</div>
+      </div>
+      <div class="bs-cell">
+        <div class="bs-label">Actual FY2025 Revenue</div>
+        <div class="bs-num red">$3.68M</div>
+        <div class="bs-sub">Missed pitch-deck target by 99.9%. No growth in 3 years.</div>
+      </div>
+      <div class="bs-cell">
+        <div class="bs-label">Market Cap / Revenue Multiple</div>
+        <div class="bs-num red">772×</div>
+        <div class="bs-sub">Meta trades at 9× sales. DJT trades at 772×. No path to justify.</div>
+      </div>
+    </div>
+
+    <p>Truth Social has approximately <strong>359,000 daily active users</strong> as estimated by SimilarWeb — a number so small it would not register as a rounding error on Facebook, TikTok, or even Rumble. The premium Truth+ streaming service has not disclosed subscriber counts. The operating margin is <strong>−4,092%</strong>. This is not a business in early monetization mode. It is a business that has never demonstrated the ability to convert its political audience into advertising or subscription revenue at any scale.</p>
+
+    <div class="evidence-box">
+      <div class="eb-title">▼ Revenue Trajectory — The Unbroken Decline</div>
+      <div class="eb-body">
+        FY2023: $4.1M → FY2024: ~$3.8M (est.) → FY2025: $3.68M → Q3 2025 alone: $972K<br><br>
+        <strong>Three-year revenue growth rate: 0%.</strong> The company's pitch deck projected FY2026 revenue of $3.67 billion. Actual trailing twelve-month revenue: $3.68 million — a miss of 99.9% with one year remaining in the projection window. No ad technology, no audience growth mechanism, and no subscriber data suggest any reversal is imminent.
+      </div>
+    </div>
+
+    <!-- COUNT 2 -->
+    <h2 class="red-head">Evidence II — The Bitcoin Treasury Is Bleeding</h2>
+
+    <p>In May 2025, management made a <strong>catastrophic strategic pivot</strong>: raising $2.5 billion to transform DJT into a Bitcoin treasury company, issuing 55.8 million new shares and $1 billion in zero-interest convertible notes to fund the purchase. This diluted every existing shareholder by approximately 25% in a single transaction. The stated rationale — to tie DJT's stock price to Bitcoin rather than Truth Social's performance — has since backfired dramatically.</p>
+
+    <p>Bitcoin has fallen from $88,738 on January 1, 2026 to approximately <strong>$68,949</strong> today — a decline of over 22% year-to-date. The company recorded <strong>$582 million in non-cash digital asset markdowns</strong> in FY2025, the primary driver of the $712 million net loss. Separately, DJT purchased 684.4 million CRO (Cronos) tokens at 15.3 cents per token — those same tokens now trade at approximately <strong>7.8 cents</strong>, creating an unrealized loss of over <strong>$51 million</strong>. The planned CRO Strategy Company hasn't materialized due to the price collapse.</p>
+
+    <div class="det-table" style="margin:18px 0;">
+      <table style="width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:11px;border:1px solid var(--border2);">
+        <thead>
+          <tr>
+            <th style="background:var(--ink);color:var(--bg);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;padding:10px 13px;text-align:left;">Asset</th>
+            <th style="background:var(--ink);color:var(--bg);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;padding:10px 13px;text-align:left;">Cost / Entry</th>
+            <th style="background:var(--ink);color:var(--bg);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;padding:10px 13px;text-align:left;">Current Value</th>
+            <th style="background:var(--ink);color:var(--bg);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;padding:10px 13px;text-align:left;">Unrealized P&L</th>
+            <th style="background:var(--ink);color:var(--bg);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;padding:10px 13px;text-align:left;">Risk</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:9px 13px;font-weight:700;">Bitcoin Holdings</td>
+            <td style="padding:9px 13px;">~$88,738/BTC (Jan 1 2026)</td>
+            <td style="padding:9px 13px;">~$68,949/BTC (Mar 10)</td>
+            <td style="padding:9px 13px;color:var(--red);font-weight:700;">−22% YTD + $582M 2025 markdowns</td>
+            <td style="padding:9px 13px;color:var(--red);">HIGH</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);background:var(--surface2);">
+            <td style="padding:9px 13px;font-weight:700;">CRO Tokens (Cronos)</td>
+            <td style="padding:9px 13px;">15.3¢ / token (Sep 2025)</td>
+            <td style="padding:9px 13px;">7.8¢ / token (Mar 10)</td>
+            <td style="padding:9px 13px;color:var(--red);font-weight:700;">−49% · ~$51M unrealized loss</td>
+            <td style="padding:9px 13px;color:var(--red);">CRITICAL</td>
+          </tr>
+          <tr>
+            <td style="padding:9px 13px;font-weight:700;">Convertible Notes</td>
+            <td style="padding:9px 13px;">$1B issued, 0% interest</td>
+            <td style="padding:9px 13px;">Converts at discount to market</td>
+            <td style="padding:9px 13px;color:var(--amber);font-weight:700;">Future dilution risk on conversion</td>
+            <td style="padding:9px 13px;color:var(--amber);">HIGH</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- COUNT 3 -->
+    <h2 class="red-head">Evidence III — Catastrophic, Continuous Dilution</h2>
+
+    <p>DJT's share count has exploded. Shares outstanding have grown by <strong>75.6% in the last twelve months</strong> — from approximately 159 million to 280 million. Diluted shares outstanding rose <strong>38.4% year-over-year</strong> in 2025 alone. This is not growth equity funding a scaling business. This is a company consuming its own equity to fund operations and speculative asset purchases.</p>
+
+    <div class="dilution-bars">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-light);margin-bottom:6px;">Shares Outstanding — Growth Timeline</div>
+      <div class="dbar-row">
+        <div class="dbar-label">Mar 2024</div>
+        <div class="dbar-bg"><div class="dbar-fill" style="width:32%;background:var(--ink);">~159M shares</div></div>
+      </div>
+      <div class="dbar-row">
+        <div class="dbar-label">Dec 2024</div>
+        <div class="dbar-bg"><div class="dbar-fill" style="width:48%;background:var(--amber);">~195M (+23%)</div></div>
+      </div>
+      <div class="dbar-row">
+        <div class="dbar-label">May 2025</div>
+        <div class="dbar-bg"><div class="dbar-fill" style="width:66%;background:#c05020;">~251M (+58% vs. IPO)</div></div>
+      </div>
+      <div class="dbar-row">
+        <div class="dbar-label">Mar 2026</div>
+        <div class="dbar-bg"><div class="dbar-fill" style="width:100%;background:var(--red);">~280M (+76% in 12 months)</div></div>
+      </div>
+    </div>
+
+    <p>Every new share issued to fund the Bitcoin strategy, the convertible notes, and management compensation directly dilutes Trump's 52% stake and all other shareholders. The $1 billion in zero-interest convertible notes will add further shares on conversion, likely at below-market prices. There is no mechanism by which this dilution stops — the company has no free cash flow from operations to fund itself without continuing to tap equity and debt markets.</p>
+
+    <!-- COUNT 4 -->
+    <h2 class="red-head">Evidence IV — The TAE Merger Is a Speculative Fantasy</h2>
+
+    <p>On December 18, 2025, DJT announced a $6 billion all-stock merger with TAE Technologies — a nuclear fusion startup founded in 1998 that has been pursuing commercial fusion for 27 years without success. The stated goal is to create a "utility-scale fusion plant" by 2026 onwards. No fusion company has <strong>ever produced net energy at commercial scale anywhere in the world.</strong> The National Ignition Facility's landmark 2022 experiment produced 3.15 megajoules from 2.05 megajoules of laser energy — a breakthrough in physics, but still years from a commercially viable plant.</p>
+
+    <div class="evidence-box">
+      <div class="eb-title">▼ Why the TAE Merger Doesn't Save DJT</div>
+      <div class="eb-body">
+        <strong>1. No proven commercial fusion technology exists anywhere.</strong> TAE has been operating since 1998 — 28 years — without reaching commercial viability.<br><br>
+        <strong>2. The deal is all-stock.</strong> DJT shareholders receive 50% of a combined entity whose primary asset is speculative IP. No cash, no earnings, no revenue.<br><br>
+        <strong>3. The market has already cooled.</strong> After an initial bump on Dec 18, DJT resumed its downtrend. The stock is lower today than before the announcement.<br><br>
+        <strong>4. Truth Social spinoff separates the brand.</strong> If the spinoff proceeds before the merger closes, the entity merging with TAE won't even contain Truth Social — meaning DJT holders get a media spinco AND a fusion company with zero revenue between them.<br><br>
+        <strong>5. Fusion will need massive government support.</strong> Given DJT's conflicts of interest with the current administration, regulatory approvals create both risk and optics concerns.
+      </div>
+    </div>
+
+    <!-- COUNT 5 -->
+    <h2 class="red-head">Evidence V — The Scores Don't Lie</h2>
+
+    <p>Two independently constructed financial distress models both flag DJT as a high-risk entity:</p>
+
+    <div class="big-stat-row">
+      <div class="bs-cell">
+        <div class="bs-label">Altman Z-Score</div>
+        <div class="bs-num red">2.57</div>
+        <div class="bs-sub">Below 3.0 = Distress Zone. Below 1.81 = Bankruptcy Zone. DJT sits in the grey area — and trending lower as assets erode.</div>
+      </div>
+      <div class="bs-cell">
+        <div class="bs-label">Piotroski F-Score</div>
+        <div class="bs-num red">1 / 9</div>
+        <div class="bs-sub">Score of 0–2 = financially weak. DJT scores 1, indicating nearly every financial health metric is failing simultaneously.</div>
+      </div>
+      <div class="bs-cell">
+        <div class="bs-label">Return on Equity</div>
+        <div class="bs-num red">−9.3%</div>
+        <div class="bs-sub">ROE is negative. ROIC is −10.4%. Every dollar of capital invested is actively destroying value — not preserving it.</div>
+      </div>
+    </div>
+
+    <p>The Altman Z-Score uses five financial ratios — working capital, retained earnings, EBIT, market value of equity, and sales — all relative to total assets. DJT's score of <strong>2.57 is approaching the 1.81 threshold that historically precedes formal bankruptcy filings</strong>. The Piotroski F-Score of 1 out of 9 means the company passes virtually none of the nine profitability, leverage, and operating efficiency tests used to assess financial health. This is not a borderline result. It is a near-failure across every metric.</p>
+
+    <div class="pull">"Revenue growth rate: 0% over three years. Diluted shares outstanding: +38.4% in one year. Altman Z-Score: 2.57. Piotroski F-Score: 1. This is not a company waiting to turn the corner. This is a company on a measured path to zero."</div>
+
+    <hr class="sep">
+
+    <!-- OPTIONS SECTION -->
+    <h2>The Put Options Framework: Buying the Decline</h2>
+
+    <p>With 30-day implied volatility at <strong>69.68%</strong>, put options on DJT are expensive in percentage terms — but the key insight is that on a $10 stock, the absolute premium per contract is very low. A $10 put costs approximately $1.70–$2.00. The thesis requires a move to $5–7 in the bull-for-bears scenario or toward $2–3 in the terminal scenario — both multiples of any put premium at current strikes.</p>
+
+    <p>Unlike the XOM/CVX call thesis which requires a positive event, the DJT put thesis is <strong>event-agnostic in the negative direction</strong>: TAE merger failure, continued Bitcoin decline, another dilutive issuance, or simply continued revenue stagnation — any of these independently is sufficient to drive further price deterioration. The bear thesis does not need a single catalyst. It needs time and the absence of rescue.</p>
+
+    <div class="greeks-panel">
+      <div class="gp-title">Options Greeks — What Each Means for a DJT Put Position</div>
+      <div class="greeks-grid">
+        <div>
+          <div class="gk-sym">Δ</div>
+          <div class="gk-name">Delta</div>
+          <div class="gk-desc">Put delta is negative: −0.50 for ATM. Each $1 drop in DJT = +$50 per contract. On a $10 stock, delta sensitivity per dollar is very high relative to premium cost. A move to $7 on an ATM put = +$150 on a $200 investment.</div>
+          <div class="gk-note">▼ Strong negative delta = profits from decline</div>
+        </div>
+        <div>
+          <div class="gk-sym">Γ</div>
+          <div class="gk-name">Gamma</div>
+          <div class="gk-desc">High gamma on this name given proximity to low-price territory. As DJT approaches $7–8, OTM puts become ATM and delta accelerates rapidly. Gamma amplifies gains if the stock gaps down on bad news — which it does regularly.</div>
+        </div>
+        <div>
+          <div class="gk-sym">Θ</div>
+          <div class="gk-name">Theta</div>
+          <div class="gk-desc">The main enemy. At 69.68% IV, theta decay is brutal on short-dated puts. Prefer 60–90 DTE to give the thesis time to play out through a catalyst window (TAE/spinoff decisions, next earnings, BTC moves). Don't go shorter than 45 DTE.</div>
+          <div class="gk-note">⚠ Size for 90-day windows, not 30-day</div>
+        </div>
+        <div>
+          <div class="gk-sym">V</div>
+          <div class="gk-name">Vega</div>
+          <div class="gk-desc">DJT's IV tends to spike on negative news (earnings misses, dilution announcements, failed catalysts) — which benefits put holders through vega gains. Unlike some tickers where IV collapses after events, DJT tends to maintain elevated IV between events.</div>
+          <div class="gk-note">▲ IV spikes on bad news = vega tailwind</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="strat-label">Structure 1 — ATM Puts (Direct Decline Bet)</div>
+    <div class="strat-title">Maximum delta exposure for a high-conviction terminal-decline thesis.</div>
+    <div class="ann ann-r">
+      <span class="ann-tag">Note</span>
+      <span>At $10.27, a $10 strike put gives near-ATM exposure with ~−0.50 delta. Cost is low in absolute terms (~$1.80/contract). If DJT moves to $7 by June expiry — a 32% move that has occurred multiple times in DJT's history — the ATM put triples on a $180 investment per contract. Best for traders with high conviction on the terminal path.</span>
+    </div>
+    <div class="table-scroll">
+      <table class="opts-tbl">
+        <thead><tr><th>Ticker</th><th>Strike</th><th>Type</th><th>Expiry</th><th>Est. Premium</th><th>Delta Δ</th><th>Gamma Γ</th><th>Theta Θ/day</th><th>Vega</th><th>IV est.</th><th>Max Loss</th><th>Break-even</th></tr></thead>
+        <tbody>
+          <tr><td class="td-ticker">DJT</td><td class="td-bad">$10</td><td>Put</td><td>Jun 20, 2026</td><td>$1.80</td><td class="td-bad">−0.50</td><td>0.065</td><td class="td-bad">−$0.07</td><td>0.18</td><td>70%</td><td class="td-bad">$180</td><td class="td-bad">$8.20</td></tr>
+          <tr><td class="td-ticker">DJT</td><td class="td-bad">$10</td><td>Put</td><td>May 16, 2026</td><td>$1.45</td><td class="td-bad">−0.50</td><td>0.080</td><td class="td-bad">−$0.09</td><td>0.14</td><td>72%</td><td class="td-bad">$145</td><td class="td-bad">$8.55</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="strat-label">Structure 2 — OTM Puts (Terminal / Bankruptcy Scenario)</div>
+    <div class="strat-title">Bets on DJT reaching $5–6 range as Bitcoin treasury erodes and TAE deal collapses.</div>
+    <div class="ann">
+      <span class="ann-tag">Note</span>
+      <span>Deep OTM puts at $7 or $5 are very cheap ($0.40–$0.70) and offer 5–15× on premium in a terminal scenario. DJT traded near $9.89 just recently — its all-time low. A failed TAE deal + continued BTC decline could push toward or below $7 within the June expiry window. Low probability per event, but multiple independent catalysts can trigger this scenario.</span>
+    </div>
+    <div class="table-scroll">
+      <table class="opts-tbl">
+        <thead><tr><th>Ticker</th><th>Strike</th><th>Type</th><th>Expiry</th><th>Est. Premium</th><th>Delta Δ</th><th>Gamma Γ</th><th>Theta Θ/day</th><th>Vega</th><th>IV est.</th><th>Max Loss</th><th>Break-even</th></tr></thead>
+        <tbody>
+          <tr><td class="td-ticker">DJT</td><td class="td-bad">$7</td><td>Put</td><td>Jun 20, 2026</td><td>$0.65</td><td class="td-warn">−0.27</td><td>0.040</td><td class="td-bad">−$0.05</td><td>0.12</td><td>75%</td><td class="td-bad">$65</td><td class="td-bad">$6.35</td></tr>
+          <tr><td class="td-ticker">DJT</td><td class="td-bad">$5</td><td>Put</td><td>Jun 20, 2026</td><td>$0.25</td><td class="td-warn">−0.13</td><td>0.020</td><td class="td-bad">−$0.02</td><td>0.07</td><td>80%</td><td class="td-bad">$25</td><td class="td-bad">$4.75</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="strat-label">Structure 3 — Put Spread (Defined Risk, Reduced Premium Cost)</div>
+    <div class="strat-title">Buy $10 put, sell $6 put. Caps maximum profit but reduces premium by ~40%.</div>
+    <div class="ann">
+      <span class="ann-tag">Note</span>
+      <span>A $10/$6 put spread costs approximately $1.10 net premium and pays the full $4.00 spread if DJT falls below $6 by expiry. Net max profit: ~$290/spread on a $110 investment = 164% return. Best for traders who want cost efficiency and don't need the terminal scenario to play out — just continued deterioration to $6.</span>
+    </div>
+    <div class="table-scroll">
+      <table class="opts-tbl">
+        <thead><tr><th>Ticker</th><th>Long Put</th><th>Short Put</th><th>Expiry</th><th>Net Premium</th><th>Max Profit</th><th>Max Loss</th><th>Break-even</th><th>Return if DJT=$6</th><th>Return if DJT=$4</th></tr></thead>
+        <tbody>
+          <tr><td class="td-ticker">DJT</td><td class="td-bad">$10 Put</td><td class="td-ok">$6 Put</td><td>Jun 20, 2026</td><td class="td-bad">$1.10</td><td class="td-ok">$2.90</td><td class="td-bad">$1.10</td><td class="td-bad">$8.90</td><td class="td-ok">+164%</td><td class="td-ok">+164% (capped)</td></tr>
+          <tr><td class="td-ticker">DJT</td><td class="td-bad">$10 Put</td><td class="td-ok">$5 Put</td><td>Jun 20, 2026</td><td class="td-bad">$1.55</td><td class="td-ok">$3.45</td><td class="td-bad">$1.55</td><td class="td-bad">$8.45</td><td class="td-ok">+123%</td><td class="td-ok">+223% (at $4)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="fine-print">* All premiums are illustrative estimates based on current IV levels of ~69–80%. Not investment advice. Shorting or buying puts on DJT carries extreme risk of total premium loss if political news causes a sharp reversal.</p>
+
+    <hr class="sep">
+
+    <h2>Risk / Reward Scenarios — Bear, Base, Bull-for-Bears</h2>
+
+    <p>All scenarios are framed from the perspective of a <strong>short / put holder</strong>. The "bull" case here is the scenario that hurts the short thesis — not a true price appreciation thesis. Note the asymmetry: even the least favorable scenario (a temporary rally to $15) does not permanently impair the bear thesis unless the TAE deal and spinoff both close successfully and the company achieves profitability — an outcome with no current evidence of support.</p>
+
+    <div class="scenarios">
+      <div class="sc-card">
+        <div class="sc-label sc-base">Base Case — Continued Erosion</div>
+        <div class="sc-title">TAE Delayed. BTC Flat. No New Catalysts. Slow Bleed.</div>
+        <div class="sc-prob" style="color:var(--red);">50%</div>
+        <div class="sc-plbl">Estimated probability</div>
+        <div class="sc-row"><span class="sc-k">DJT Target Price</span><span style="color:var(--red);">$6 – $8</span></div>
+        <div class="sc-row"><span class="sc-k">Downside from $10.27</span><span style="color:var(--red);">−22% to −42%</span></div>
+        <div class="sc-row"><span class="sc-k">ATM $10 Put (Jun) P&L</span><span style="color:var(--red);">+22% to +122%</span></div>
+        <div class="sc-row"><span class="sc-k">$10/$6 Spread P&L</span><span style="color:var(--red);">+55% to +164%</span></div>
+        <div class="sc-row"><span class="sc-k">$7 OTM Put P&L</span><span style="color:var(--red);">−50% to +15%</span></div>
+        <div class="sc-row"><span class="sc-k">Drivers</span><span style="color:var(--red);">BTC drift, no merger news</span></div>
+      </div>
+      <div class="sc-card">
+        <div class="sc-label sc-bear">Bear Case — Accelerated Collapse</div>
+        <div class="sc-title">TAE Deal Falls Apart. BTC Continues Declining. Dilution Continues.</div>
+        <div class="sc-prob" style="color:var(--red-dark);">35%</div>
+        <div class="sc-plbl">Estimated probability</div>
+        <div class="sc-row"><span class="sc-k">DJT Target Price</span><span style="color:var(--red-dark);">$2 – $5</span></div>
+        <div class="sc-row"><span class="sc-k">Downside from $10.27</span><span style="color:var(--red-dark);">−51% to −81%</span></div>
+        <div class="sc-row"><span class="sc-k">ATM $10 Put (Jun) P&L</span><span style="color:var(--red-dark);">+289% to +456%</span></div>
+        <div class="sc-row"><span class="sc-k">$10/$6 Spread P&L</span><span style="color:var(--red-dark);">+164% (max, capped at $6)</span></div>
+        <div class="sc-row"><span class="sc-k">$7 OTM Put P&L</span><span style="color:var(--red-dark);">+115% to +692%</span></div>
+        <div class="sc-row"><span class="sc-k">Drivers</span><span style="color:var(--red-dark);">TAE blocked, BTC &lt;$50K</span></div>
+      </div>
+      <div class="sc-card">
+        <div class="sc-label sc-bull">Bull-for-Bears Risk — Temporary Squeeze</div>
+        <div class="sc-title">TAE Approval Surprise. Political Catalyst. Short Squeeze.</div>
+        <div class="sc-prob" style="color:var(--amber);">15%</div>
+        <div class="sc-plbl">Risk to short thesis</div>
+        <div class="sc-row"><span class="sc-k">DJT Target Price</span><span style="color:var(--amber);">$15 – $20</span></div>
+        <div class="sc-row"><span class="sc-k">Upside risk to shorts</span><span style="color:var(--amber);">+46% to +95%</span></div>
+        <div class="sc-row"><span class="sc-k">ATM Put (Jun) P&L</span><span style="color:var(--amber);">−100% (expire worthless)</span></div>
+        <div class="sc-row"><span class="sc-k">$10/$6 Spread P&L</span><span style="color:var(--amber);">−100% (expire worthless)</span></div>
+        <div class="sc-row"><span class="sc-k">Max loss</span><span style="color:var(--amber);">Premium paid only</span></div>
+        <div class="sc-row"><span class="sc-k">Mitigation</span><span style="color:var(--amber);">Size small, use spreads</span></div>
+      </div>
+    </div>
+
+    <div class="conclusion">
+      <h3>The Verdict: Six Counts, One Conclusion</h3>
+      <p>Revenue declining for three years. Share count up 75% in twelve months. Bitcoin treasury down 22% YTD with $582M in markdowns. CRO tokens worth half their cost. An Altman Z-Score of <strong>2.57</strong> and a Piotroski F-Score of <strong>1</strong>. A $6 billion merger with a fusion technology company that has never produced commercial power in 28 years. The operating business generates $972K per quarter and has zero growth. The balance sheet floor — the only bull argument — is itself eroding as crypto assets decline and convertible notes threaten further dilution. The put options framework presented here offers asymmetric, defined-risk exposure to what the evidence suggests is an inevitable repricing toward intrinsic value. <strong>That value, stripped of political premium and speculative corporate activity, is a fraction of the current price.</strong></p>
+    </div>
+
+  </article>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="sb-card">
+      <div class="sb-head red-head">The Six Counts</div>
+      <div class="sb-body">
+        <div class="sb-row"><span class="sb-k">I. Revenue</span><span class="sb-v bad">Declining · $972K Q3</span></div>
+        <div class="sb-row"><span class="sb-k">II. Bitcoin Treasury</span><span class="sb-v bad">−22% YTD · $582M loss</span></div>
+        <div class="sb-row"><span class="sb-k">III. Dilution</span><span class="sb-v bad">+75.6% shares in 12M</span></div>
+        <div class="sb-row"><span class="sb-k">IV. TAE Merger</span><span class="sb-v bad">No proven fusion tech</span></div>
+        <div class="sb-row"><span class="sb-k">V. Z-Score / F-Score</span><span class="sb-v bad">2.57 / 1 — Distress</span></div>
+        <div class="sb-row"><span class="sb-k">VI. User Base</span><span class="sb-v bad">359K DAU — no scale</span></div>
+      </div>
+    </div>
+
+    <div class="sb-card">
+      <div class="sb-head">Key Financial Stats</div>
+      <div class="sb-body">
+        <div class="sb-row"><span class="sb-k">Price (Mar 10)</span><span class="sb-v">$10.27</span></div>
+        <div class="sb-row"><span class="sb-k">52-Week High</span><span class="sb-v">$27.78</span></div>
+        <div class="sb-row"><span class="sb-k">52-Week Low</span><span class="sb-v bad">$9.89 (recent)</span></div>
+        <div class="sb-row"><span class="sb-k">ATH (Mar 2024)</span><span class="sb-v">~$79.38</span></div>
+        <div class="sb-row"><span class="sb-k">Decline from ATH</span><span class="sb-v bad">−87%</span></div>
+        <div class="sb-row"><span class="sb-k">Market Cap</span><span class="sb-v">$2.84B</span></div>
+        <div class="sb-row"><span class="sb-k">Revenue (FY2025)</span><span class="sb-v bad">$3.68M</span></div>
+        <div class="sb-row"><span class="sb-k">Net Loss (FY2025)</span><span class="sb-v bad">−$712.3M</span></div>
+        <div class="sb-row"><span class="sb-k">Operating Margin</span><span class="sb-v bad">−4,092%</span></div>
+        <div class="sb-row"><span class="sb-k">Revenue Growth (3Y)</span><span class="sb-v bad">0%</span></div>
+        <div class="sb-row"><span class="sb-k">Diluted Share Growth</span><span class="sb-v bad">+38.4% YoY</span></div>
+        <div class="sb-row"><span class="sb-k">Beta</span><span class="sb-v warn">4.655</span></div>
+        <div class="sb-row"><span class="sb-k">30-Day IV</span><span class="sb-v warn">69.68%</span></div>
+        <div class="sb-row"><span class="sb-k">Short Interest</span><span class="sb-v">10.57M (3.78% float)</span></div>
+      </div>
+    </div>
+
+    <div class="sb-card">
+      <div class="sb-head">Distress Indicators</div>
+      <div class="sb-body">
+        <div class="sb-row"><span class="sb-k">Altman Z-Score</span><span class="sb-v bad">2.57 (danger zone)</span></div>
+        <div class="sb-row"><span class="sb-k">Distress threshold</span><span class="sb-v bad">&lt; 3.0</span></div>
+        <div class="sb-row"><span class="sb-k">Bankruptcy threshold</span><span class="sb-v bad">&lt; 1.81</span></div>
+        <div class="sb-row"><span class="sb-k">Piotroski F-Score</span><span class="sb-v bad">1 / 9</span></div>
+        <div class="sb-row"><span class="sb-k">ROE</span><span class="sb-v bad">−9.32%</span></div>
+        <div class="sb-row"><span class="sb-k">ROIC</span><span class="sb-v bad">−10.41%</span></div>
+        <div class="sb-row"><span class="sb-k">Auditor concern (2024)</span><span class="sb-v bad">Going concern raised</span></div>
+        <div class="sb-row"><span class="sb-k">Debt/Equity</span><span class="sb-v warn">0.42 (convertible notes)</span></div>
+      </div>
+    </div>
+
+    <div class="sb-card">
+      <div class="sb-head">Risk Factors to Short Thesis</div>
+      <div class="risk-wrap">
+        <div class="risk-row">
+          <div class="risk-top"><span>TAE merger surprise approval</span><span class="severity">HIGH</span></div>
+          <div class="risk-bg"><div class="risk-fill" style="width:72%;"></div></div>
+        </div>
+        <div class="risk-row">
+          <div class="risk-top"><span>Bitcoin price recovery</span><span class="severity">HIGH</span></div>
+          <div class="risk-bg"><div class="risk-fill" style="width:68%;"></div></div>
+        </div>
+        <div class="risk-row">
+          <div class="risk-top"><span>Political headline-driven squeeze</span><span class="severity warn">MED</span></div>
+          <div class="risk-bg"><div class="risk-fill amber" style="width:52%;"></div></div>
+        </div>
+        <div class="risk-row">
+          <div class="risk-top"><span>Short squeeze (3.78% float short)</span><span class="severity warn">MED</span></div>
+          <div class="risk-bg"><div class="risk-fill amber" style="width:45%;"></div></div>
+        </div>
+        <div class="risk-row">
+          <div class="risk-top"><span>Truth Social user growth spike</span><span class="severity warn">LOW</span></div>
+          <div class="risk-bg"><div class="risk-fill amber" style="width:22%;"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sb-card">
+      <div class="sb-head">Price Target Forecasts</div>
+      <div class="sb-body">
+        <div class="sb-row"><span class="sb-k">Wall St. coverage</span><span class="sb-v bad">None (0 analysts)</span></div>
+        <div class="sb-row"><span class="sb-k">Benzinga bull 2026</span><span class="sb-v warn">~$13.87</span></div>
+        <div class="sb-row"><span class="sb-k">Benzinga avg 2026</span><span class="sb-v">~$8.25</span></div>
+        <div class="sb-row"><span class="sb-k">Benzinga bear 2026</span><span class="sb-v bad">~$4.88</span></div>
+        <div class="sb-row"><span class="sb-k">CoinCodex 2026 range</span><span class="sb-v bad">$4.25 – $11.25</span></div>
+        <div class="sb-row"><span class="sb-k">Tangible book value</span><span class="sb-v bad">~$3.12/share</span></div>
+        <div class="sb-row"><span class="sb-k">Price vs. book</span><span class="sb-v bad">3.3× — still elevated</span></div>
+      </div>
+    </div>
+
+  </aside>
+
+</div>
+
+<!-- FOOTNOTE -->
+<div class="footnote">
+  <div class="fn-title">Important Disclosures</div>
+  <p>This document is for informational and educational purposes only. It does not constitute investment advice or a recommendation to buy, sell, or short any security. Short selling and buying put options involve significant risk including potentially unlimited losses on short positions and total premium loss on put options. DJT is an extremely high-volatility stock driven by political sentiment and may move sharply against any short thesis on political or corporate news. All options premiums and Greeks are illustrative estimates. Past distress scores do not guarantee future bankruptcy. Consult a licensed financial advisor before making any investment decisions.</p>
+  <p>Sources: StockAnalysis.com (Altman Z, Piotroski F), GuruFocus, Seeking Alpha (Feb 23 2026 / Feb 13 2025), Popular.info (Judd Legum, Feb 2026), 24/7 Wall St. (Mar 10 2026), GlobeNewswire (DJT FY2025 results Feb 27 2026), NBC News (auditor going concern Apr 2024), SimilarWeb (DAU estimate), Benzinga, CoinCodex. Data as of March 10, 2026.</p>
+</div>
+
+</body>
+</html>
