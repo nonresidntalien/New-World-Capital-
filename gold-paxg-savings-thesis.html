@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Timeless Hedge: Why Gold Belongs in Every On-Chain Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@300;400;500;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #0a0906;
+    --bg2:       #110f0b;
+    --surface:   #141210;
+    --surface2:  #1c1a17;
+    --border:    rgba(255,220,100,0.06);
+    --border2:   rgba(255,220,100,0.12);
+    --gold:      #c8922a;
+    --gold-bright: #e8b84b;
+    --gold-dim:  rgba(200,146,42,0.10);
+    --gold-b:    rgba(200,146,42,0.28);
+    --gold-dark: #8b6010;
+    --amber:     #d4870f;
+    --red:       #c0272d;
+    --red-dim:   rgba(192,39,45,0.08);
+    --red-b:     rgba(192,39,45,0.22);
+    --green:     #2e9e6a;
+    --green-dim: rgba(46,158,106,0.10);
+    --green-b:   rgba(46,158,106,0.25);
+    --blue:      #3a78c4;
+    --text:      #c8c2b8;
+    --text-dim:  #706a60;
+    --text-bright:#f0ead8;
+    --white:     #ffffff;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.78;
+    overflow-x: hidden;
+  }
+
+  /* GRAIN OVERLAY */
+  body::before {
+    content:'';
+    position:fixed; inset:0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.025) 2px, rgba(0,0,0,0.025) 4px);
+    pointer-events:none; z-index:0;
+  }
+
+  /* TICKER */
+  .ticker-wrap {
+    background: linear-gradient(90deg, #1a1408, #2a1e08, #1a1408);
+    border-bottom: 1px solid var(--gold-b);
+    overflow: hidden; height: 32px;
+    display: flex; align-items: center;
+    position: relative; z-index: 10;
+  }
+  .ticker-badge {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 12px; letter-spacing: 0.16em;
+    color: var(--bg); background: var(--gold);
+    padding: 0 16px; height: 100%;
+    display: flex; align-items: center;
+    white-space: nowrap; flex-shrink: 0;
+    border-right: 1px solid var(--gold-dark);
+  }
+  .ticker-inner {
+    display: flex;
+    animation: tick 38s linear infinite;
+    white-space: nowrap;
+  }
+  .tick-item {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 500;
+    padding: 0 28px;
+    color: rgba(200,146,42,0.85);
+    border-right: 1px solid var(--border2);
+    letter-spacing: 0.04em;
+  }
+  .tick-item b { color: var(--gold-bright); margin-right: 5px; }
+  .tick-item .up { color: #6ecc96; }
+  .tick-item .dn { color: #e07070; }
+  @keyframes tick { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+  /* MASTHEAD */
+  .masthead {
+    border-bottom: 1px solid var(--border2);
+    padding: 14px 52px;
+    display: flex; justify-content: space-between; align-items: center;
+    position: relative; z-index: 2;
+  }
+  .pub-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px; letter-spacing: 0.2em;
+    color: var(--gold);
+  }
+  .pub-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.1em;
+    color: var(--text-dim);
+  }
+
+  /* HERO */
+  .hero {
+    max-width: 1140px; margin: 0 auto;
+    padding: 70px 52px 52px;
+    position: relative; z-index: 2;
+    border-bottom: 1px solid var(--border2);
+  }
+  .hero::after {
+    content: 'Au';
+    position: absolute; right: 40px; top: 20px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 280px; line-height: 1;
+    color: rgba(200,146,42,0.04);
+    pointer-events: none;
+    letter-spacing: -0.02em;
+  }
+  .cat-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--gold-b);
+    display: inline-block; padding: 4px 12px;
+    margin-bottom: 24px;
+  }
+  h1.headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 5.2vw, 72px);
+    line-height: 0.95; color: var(--text-bright);
+    max-width: 820px; letter-spacing: 0.01em;
+    margin-bottom: 20px;
+  }
+  h1.headline em { color: var(--gold); font-style: normal; }
+  .deck {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic; font-size: 19px;
+    font-weight: 300; color: var(--text-dim);
+    max-width: 660px; line-height: 1.55;
+    margin-bottom: 0;
+  }
+
+  /* METRICS */
+  .metric-wrap {
+    max-width: 1140px; margin: 0 auto;
+    padding: 0 52px 52px;
+    position: relative; z-index: 2;
+  }
+  .metrics {
+    display: grid; grid-template-columns: repeat(5,1fr);
+    gap: 1px; background: var(--border2);
+    border: 1px solid var(--border2);
+    margin-top: 32px;
+  }
+  .mc {
+    background: var(--surface);
+    padding: 16px 16px; position: relative;
+  }
+  .mc::after {
+    content:''; position:absolute; top:0;left:0;right:0; height:2px;
+  }
+  .mc-g::after  { background: var(--gold); }
+  .mc-gr::after { background: var(--green); }
+  .mc-r::after  { background: var(--red); }
+  .mc-b::after  { background: var(--blue); }
+  .mc-gy::after { background: #555; }
+  .m-lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7.5px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-dim); margin-bottom: 5px;
+  }
+  .m-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 20px; font-weight: 700;
+    color: var(--text-bright); line-height: 1;
+  }
+  .m-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px; margin-top: 4px;
+  }
+  .up  { color: var(--green); }
+  .dn  { color: var(--red); }
+  .neu { color: var(--text-dim); }
+  .gld { color: var(--gold-bright); }
+
+  /* LAYOUT */
+  .main {
+    max-width: 1140px; margin: 0 auto;
+    padding: 0 52px;
+    display: grid; grid-template-columns: 1fr 304px;
+    gap: 54px; align-items: start;
+    position: relative; z-index: 2;
+  }
+
+  /* ARTICLE */
+  .article h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px; letter-spacing: 0.04em;
+    color: var(--text-bright);
+    border-bottom: 1px solid var(--border2);
+    padding-bottom: 10px; margin: 52px 0 16px;
+  }
+  .article h2:first-child { margin-top: 0; }
+  .article h2 .gold-head { color: var(--gold); }
+  .article h3 {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic; font-size: 17px;
+    color: var(--gold); margin: 26px 0 8px;
+  }
+  .article p {
+    font-size: 16px; line-height: 1.85;
+    color: var(--text); margin-bottom: 17px;
+  }
+  .article p strong { color: var(--text-bright); }
+
+  .pull {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic; font-size: 21px;
+    line-height: 1.4; color: var(--gold);
+    border-left: 3px solid var(--gold);
+    padding: 10px 0 10px 22px; margin: 32px 0;
+  }
+
+  /* CRISIS TABLE */
+  .crisis-tbl {
+    width: 100%; border-collapse: collapse;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; border: 1px solid var(--border2);
+    margin: 18px 0;
+  }
+  .crisis-tbl thead th {
+    background: var(--surface2);
+    color: var(--gold); font-size: 8px;
+    letter-spacing: 0.13em; text-transform: uppercase;
+    padding: 10px 13px; text-align: left;
+    border-bottom: 1px solid var(--border2);
+    white-space: nowrap;
+  }
+  .crisis-tbl tbody tr { border-bottom: 1px solid var(--border); transition: background 0.12s; }
+  .crisis-tbl tbody tr:hover { background: var(--surface2); }
+  .crisis-tbl tbody tr:last-child { border-bottom: none; }
+  .crisis-tbl td { padding: 9px 13px; color: var(--text); }
+  .crisis-tbl td.year { color: var(--gold); font-weight: 700; }
+  .crisis-tbl td.pos  { color: var(--green); font-weight: 700; }
+  .crisis-tbl td.neg  { color: var(--red); font-weight: 700; }
+  .crisis-tbl td.neu  { color: var(--text-dim); }
+
+  /* GOLD PRICE PATH */
+  .price-path {
+    margin: 20px 0;
+    display: flex; flex-direction: column;
+    gap: 2px;
+  }
+  .pp-row {
+    display: grid; grid-template-columns: 80px 1fr auto;
+    gap: 14px; align-items: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+  }
+  .pp-year {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 700;
+    color: var(--gold);
+  }
+  .pp-bar-bg { flex: 1; height: 4px; background: var(--border2); }
+  .pp-bar-fill { height: 100%; }
+  .pp-price {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 700;
+    color: var(--text-bright); white-space: nowrap;
+  }
+
+  /* PORTFOLIO GRID */
+  .port-grid {
+    display: grid; grid-template-columns: repeat(2,1fr);
+    gap: 2px; background: var(--border2);
+    border: 1px solid var(--border2);
+    margin: 20px 0;
+  }
+  .pg-cell {
+    background: var(--surface);
+    padding: 18px 18px; position: relative;
+    overflow: hidden;
+  }
+  .pg-cell::before {
+    content:''; position:absolute; top:0;left:0;right:0; height:3px;
+  }
+  .pg-g::before  { background: var(--gold); }
+  .pg-b::before  { background: var(--blue); }
+  .pg-gr::before { background: var(--green); }
+  .pg-r::before  { background: var(--red); }
+  .pg-icon {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px; line-height: 1;
+    color: rgba(200,146,42,0.06);
+    position: absolute; right: 10px; bottom: 4px;
+    pointer-events: none;
+  }
+  .pg-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--gold-bright); margin-bottom: 4px;
+  }
+  .pg-b .pg-name  { color: var(--blue); }
+  .pg-gr .pg-name { color: var(--green); }
+  .pg-r .pg-name  { color: #e07070; }
+  .pg-type {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; color: var(--text-dim);
+    letter-spacing: 0.08em; margin-bottom: 10px;
+  }
+  .pg-body {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--text-dim);
+    line-height: 1.65;
+  }
+  .pg-risk {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; margin-top: 10px;
+    letter-spacing: 0.08em;
+  }
+
+  /* RISK BOXES */
+  .risk-box {
+    background: var(--red-dim);
+    border: 1px solid var(--red-b);
+    border-left: 3px solid var(--red);
+    padding: 14px 18px; margin: 18px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; line-height: 1.65;
+    color: var(--text);
+  }
+  .rb-title {
+    font-size: 8.5px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 8px;
+  }
+
+  .gold-box {
+    background: var(--gold-dim);
+    border: 1px solid var(--gold-b);
+    border-left: 3px solid var(--gold);
+    padding: 16px 20px; margin: 18px 0;
+  }
+  .gb-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 10px;
+  }
+  .gb-body {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--text);
+    line-height: 1.65;
+  }
+
+  .green-box {
+    background: var(--green-dim);
+    border: 1px solid var(--green-b);
+    border-left: 3px solid var(--green);
+    padding: 16px 20px; margin: 18px 0;
+  }
+  .gn-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--green); margin-bottom: 10px;
+  }
+  .gn-body {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--text);
+    line-height: 1.65;
+  }
+
+  /* PAXG VS XAUT TABLE */
+  .cmp-tbl {
+    width: 100%; border-collapse: collapse;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; border: 1px solid var(--border2);
+    margin: 18px 0;
+  }
+  .cmp-tbl thead th {
+    font-size: 9px; letter-spacing: 0.12em;
+    text-transform: uppercase; padding: 10px 13px;
+    text-align: left; border-bottom: 1px solid var(--border2);
+    white-space: nowrap;
+  }
+  .cmp-tbl thead th:first-child { background: var(--surface2); color: var(--text-dim); }
+  .cmp-tbl thead th.paxg-head { background: rgba(200,146,42,0.12); color: var(--gold); }
+  .cmp-tbl thead th.xaut-head { background: rgba(192,39,45,0.08); color: #e07070; }
+  .cmp-tbl tbody tr { border-bottom: 1px solid var(--border); }
+  .cmp-tbl tbody tr:last-child { border-bottom: none; }
+  .cmp-tbl td { padding: 9px 13px; }
+  .cmp-tbl td:first-child { color: var(--text-dim); }
+  .cmp-tbl td.paxg-cell { background: rgba(200,146,42,0.04); color: var(--gold-bright); }
+  .cmp-tbl td.xaut-cell { background: rgba(192,39,45,0.03); color: var(--text-dim); }
+  .cmp-tbl td.winner { color: var(--green); font-weight: 700; }
+  .cmp-tbl td.loser  { color: var(--red); }
+
+  /* WHY PAXG LIST */
+  .why-list {
+    display: flex; flex-direction: column; gap: 2px;
+    margin: 18px 0;
+  }
+  .wl-item {
+    display: grid; grid-template-columns: 32px 1fr;
+    gap: 14px; align-items: start;
+    background: var(--surface); border: 1px solid var(--border2);
+    padding: 13px 16px; position: relative;
+    overflow: hidden;
+  }
+  .wl-item::before {
+    content:''; position:absolute; top:0;left:0;bottom:0; width:3px;
+    background: var(--gold);
+  }
+  .wl-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 30px; color: rgba(200,146,42,0.12);
+    line-height: 1; align-self: center;
+  }
+  .wl-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 3px;
+  }
+  .wl-desc {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--text-dim);
+    line-height: 1.55;
+  }
+
+  /* DECADE TABLE */
+  .dec-tbl {
+    width: 100%; border-collapse: collapse;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; border: 1px solid var(--border2);
+    margin: 18px 0;
+  }
+  .dec-tbl thead th {
+    background: var(--surface2); color: var(--gold);
+    font-size: 8px; letter-spacing: 0.13em;
+    text-transform: uppercase; padding: 9px 12px;
+    text-align: left; border-bottom: 1px solid var(--border2);
+  }
+  .dec-tbl tbody tr { border-bottom: 1px solid var(--border); }
+  .dec-tbl tbody tr:last-child { border-bottom: none; }
+  .dec-tbl tbody tr:nth-child(even) { background: var(--surface2); }
+  .dec-tbl td { padding: 8px 12px; color: var(--text); }
+  .dec-tbl td.decade { color: var(--gold-bright); font-weight: 700; }
+  .dec-tbl td.gain   { color: var(--green); font-weight: 700; }
+  .dec-tbl td.loss   { color: var(--red); }
+  .dec-tbl td.driver { color: var(--text-dim); font-size: 10px; }
+
+  /* CONCLUSION */
+  .conclusion {
+    background: linear-gradient(135deg, rgba(200,146,42,0.08), rgba(200,146,42,0.03));
+    border: 1px solid var(--gold-b);
+    padding: 32px 36px; margin-top: 48px;
+    position: relative;
+  }
+  .conclusion::before {
+    content:''; position:absolute; top:0;left:0;right:0; height:3px;
+    background: linear-gradient(90deg, var(--gold), var(--amber));
+  }
+  .conclusion h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px; letter-spacing: 0.05em;
+    color: var(--text-bright); margin-bottom: 12px;
+  }
+  .conclusion p {
+    font-size: 15px; line-height: 1.85;
+    color: var(--text); margin-bottom: 0;
+  }
+
+  .sep { border: none; border-top: 1px solid var(--border2); margin: 44px 0; }
+
+  /* SIDEBAR */
+  .sidebar { position: sticky; top: 24px; }
+  .sb-card {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    margin-bottom: 16px;
+  }
+  .sb-head {
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border2);
+    padding: 9px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold);
+  }
+  .sb-head.alt { color: var(--text-dim); }
+  .sb-body { padding: 14px; }
+  .sb-row {
+    display: flex; justify-content: space-between;
+    align-items: baseline; padding: 5.5px 0;
+    border-bottom: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+  }
+  .sb-row:last-child { border-bottom: none; }
+  .sb-k { color: var(--text-dim); font-size: 8.5px; }
+  .sb-v { color: var(--text-bright); font-weight: 700; }
+  .sb-v.up { color: var(--green); }
+  .sb-v.dn { color: var(--red); }
+  .sb-v.gold { color: var(--gold-bright); }
+  .sb-v.neu { color: var(--text-dim); }
+
+  /* CRISIS TIMELINE */
+  .ct-wrap { padding: 12px 14px; }
+  .ct-row { display: flex; gap: 12px; margin-bottom: 10px; }
+  .ct-row:last-child { margin-bottom: 0; }
+  .ct-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%; margin-top: 5px;
+    flex-shrink: 0;
+  }
+  .ct-content { flex: 1; }
+  .ct-year {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px; font-weight: 700;
+    color: var(--gold); letter-spacing: 0.1em;
+  }
+  .ct-desc {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; color: var(--text-dim);
+    line-height: 1.45; margin-top: 1px;
+  }
+  .ct-perf {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; font-weight: 700;
+    margin-top: 2px;
+  }
+
+  /* RISK BARS */
+  .risk-section { padding: 12px 14px 14px; }
+  .risk-row { margin-bottom: 10px; }
+  .risk-row:last-child { margin-bottom: 0; }
+  .risk-top {
+    display: flex; justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; color: var(--text-dim);
+    margin-bottom: 4px;
+  }
+  .risk-level { font-weight: 700; }
+  .risk-level.low  { color: var(--green); }
+  .risk-level.med  { color: var(--amber); }
+  .risk-level.high { color: var(--red); }
+  .risk-bg { height: 3px; background: var(--border2); }
+  .risk-fill-g { height: 100%; background: var(--green); }
+  .risk-fill-a { height: 100%; background: var(--amber); }
+  .risk-fill-r { height: 100%; background: var(--red); }
+
+  /* FOOTNOTE */
+  .footnote {
+    max-width: 1140px; margin: 64px auto 0;
+    padding: 24px 52px;
+    border-top: 1px solid var(--border2);
+    position: relative; z-index: 2;
+  }
+  .fn-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--text-dim); margin-bottom: 8px;
+  }
+  .footnote p {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px; color: var(--text-dim);
+    line-height: 1.75; margin-bottom: 6px;
+  }
+
+  /* RESPONSIVE */
+  @media(max-width:900px){
+    .main { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+    .hero, .main, .footnote, .metric-wrap { padding-left: 22px; padding-right: 22px; }
+    .port-grid { grid-template-columns: 1fr; }
+  }
+
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border2); }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(16px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  .hero { animation: fadeUp 0.55s ease both 0.05s; }
+  .metric-wrap { animation: fadeUp 0.55s ease both 0.15s; }
+
+  .table-scroll { overflow-x: auto; }
+  .fine-print {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; color: var(--text-dim);
+    margin-top: -6px; line-height: 1.55;
+  }
+  .inline-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 2px 7px; border: 1px solid;
+    display: inline-block; vertical-align: middle;
+  }
+  .tag-g { color: var(--green); border-color: var(--green-b); }
+  .tag-r { color: var(--red); border-color: var(--red-b); }
+  .tag-au{ color: var(--gold); border-color: var(--gold-b); }
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-badge">GOLD · Au</div>
+  <div style="overflow:hidden;flex:1;">
+    <div class="ticker-inner">
+      <div class="tick-item"><b>GOLD SPOT</b> $5,228/oz <span class="up">▲ +2.44% today</span></div>
+      <div class="tick-item"><b>PAXG</b> $5,215.59 <span class="up">▲ +1.50%</span></div>
+      <div class="tick-item"><b>GOLD vs USD (since 2001)</b> <span class="up">+1,959% / 25 years</span></div>
+      <div class="tick-item"><b>GOLD 2024</b> <span class="up">+27% annual return</span></div>
+      <div class="tick-item"><b>GOLD 2025</b> <span class="up">+50%+ from Jan 2024</span></div>
+      <div class="tick-item"><b>PAXG ATH</b> $5,619.09 (Jan 29, 2026)</div>
+      <div class="tick-item"><b>PAXG Market Cap</b> $2.61B · #32 CoinMarketCap</div>
+      <div class="tick-item"><b>PAXG Custody</b> Brink's London · LBMA · NYDFS regulated</div>
+      <div class="tick-item"><b>CENTRAL BANK BUYING</b> <span class="up">+28% Q3 2025 YoY</span></div>
+      <div class="tick-item"><b>GOLD ATH</b> $5,598/oz Jan 2026 — new territory</div>
+      <div class="tick-item"><b>GOLD SPOT</b> $5,228/oz <span class="up">▲ +2.44% today</span></div>
+      <div class="tick-item"><b>PAXG</b> $5,215.59 <span class="up">▲ +1.50%</span></div>
+      <div class="tick-item"><b>GOLD vs USD (since 2001)</b> <span class="up">+1,959%</span></div>
+      <div class="tick-item"><b>CENTRAL BANK BUYING</b> Q3 2025 up 28% YoY</div>
+    </div>
+  </div>
+</div>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="pub-name">The Savings Desk &nbsp;/&nbsp; On-Chain Wealth Preservation</div>
+  <div class="pub-date">Tuesday, March 10, 2026 &nbsp;|&nbsp; Gold at $5,228/oz &nbsp;|&nbsp; PAXG on Ethereum</div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="cat-tag">Diversification · Inflation Hedge · Digital Gold · Stablecoin Portfolios</div>
+  <h1 class="headline">The Timeless Hedge:<br><em>Gold's Record</em> and Why<br>PAXG Belongs in Your<br>On-Chain Savings</h1>
+  <p class="deck">From $252 an ounce in 1999 to $5,228 today — across every financial crisis, pandemic, and inflationary shock of the last quarter century, gold has preserved and grown purchasing power. Here is the case for adding it to a stablecoin-first savings portfolio, and why PAXG is the right vehicle over Tether Gold.</p>
+</div>
+
+<!-- METRICS -->
+<div class="metric-wrap">
+  <div class="metrics">
+    <div class="mc mc-g">
+      <div class="m-lbl">Gold Spot (Mar 10, 2026)</div>
+      <div class="m-val">$5,228</div>
+      <div class="m-sub up">▲ +2.44% today · Hormuz rally</div>
+    </div>
+    <div class="mc mc-g">
+      <div class="m-lbl">PAXG Price</div>
+      <div class="m-val">$5,216</div>
+      <div class="m-sub gld">Tracking spot 1:1 · ERC-20</div>
+    </div>
+    <div class="mc mc-gr">
+      <div class="m-lbl">Gold Return since 2001</div>
+      <div class="m-val">+1,959%</div>
+      <div class="m-sub up">$254 → $5,228 in 25 years</div>
+    </div>
+    <div class="mc mc-g">
+      <div class="m-lbl">Gold 2024 Annual Return</div>
+      <div class="m-val">+27%</div>
+      <div class="m-sub up">Ended 2024 at ~$2,690/oz</div>
+    </div>
+    <div class="mc mc-b">
+      <div class="m-lbl">Central Bank Buying Q3 2025</div>
+      <div class="m-val">+28%</div>
+      <div class="m-sub neu">YoY · De-dollarization wave</div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <article class="article">
+
+    <h2>Why Stablecoins Alone Are Not a Savings Strategy</h2>
+
+    <p>If your entire savings is denominated in stablecoins — DAI, USDC, USDT — you are holding dollars. Nothing more. Each of those tokens tracks the USD at a 1:1 ratio, which means that over time, your purchasing power declines at exactly the rate of inflation. In the United States, the cumulative inflation since 2000 has eroded the dollar by more than 70%. A dollar of savings in 2000 buys less than 30 cents of equivalent goods today.</p>
+
+    <p>Stablecoins are excellent for <strong>liquidity, DeFi yield, and short-term capital preservation</strong>. They are not suited for long-term savings because they are architecturally designed to track the purchasing power of a fiat currency that governments can and do inflate at will. Holding only stablecoins is not saving — it is slow-motion loss.</p>
+
+    <p>Gold solves this. Over the same period since 2000, gold has risen from approximately <strong>$280 per ounce to $5,228</strong> today — a gain of roughly 1,767%. It has not merely kept pace with inflation. It has vastly outrun it. And it has done so through a remarkable string of crises, each of which would have wiped out the purchasing power of savers holding cash or cash equivalents.</p>
+
+    <div class="gold-box">
+      <div class="gb-title">📐 The Core Arithmetic</div>
+      <div class="gb-body">
+        $1,000 saved in USDT in 2000 = ~$1,000 in nominal terms today, but ~$290 in real purchasing power (inflation-adjusted).<br><br>
+        $1,000 invested in gold in 2000 (at ~$280/oz) = ~$18,671 today at $5,228/oz — nearly 19× in nominal terms and roughly 5× in real inflation-adjusted terms.<br><br>
+        This is why gold is not a speculative asset. It is <strong>the benchmark definition of a store of value</strong> over multi-decade horizons.
+      </div>
+    </div>
+
+    <h2>Twenty-Five Years of Crisis — Gold's Unbroken Record</h2>
+
+    <p>Gold does not just provide inflation protection during ordinary times. It accelerates during the precise moments when every other asset class is under the most stress. The following record covers every major crisis since 2000 and gold's response to each.</p>
+
+    <div class="table-scroll">
+      <table class="crisis-tbl">
+        <thead>
+          <tr>
+            <th>Period</th>
+            <th>Crisis Event</th>
+            <th>Gold Return</th>
+            <th>S&P 500</th>
+            <th>Key Driver</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="year">2000–2002</td><td>Dot-com crash + 9/11</td><td class="pos">+13%</td><td class="neg">−40%</td><td>Safe-haven flows, USD weakening</td></tr>
+          <tr><td class="year">2007</td><td>Subprime mortgage warning signs</td><td class="pos">+31%</td><td class="neg">+5% (pre-crisis)</td><td>Dollar weakness, rate fears</td></tr>
+          <tr><td class="year">2008–2009</td><td>Global Financial Crisis</td><td class="pos">+5% in '08, +25% in '09</td><td class="neg">−38%</td><td>Fed QE, bank collapse, systemic fear</td></tr>
+          <tr><td class="year">2010</td><td>Eurozone debt crisis begins</td><td class="pos">+29.6%</td><td class="pos">+15%</td><td>Sovereign debt fears, Euro stress</td></tr>
+          <tr><td class="year">2011</td><td>Debt ceiling crisis + Euro peak</td><td class="pos">+10% (to $1,895 ATH)</td><td class="neg">+0%</td><td>US credit downgrade, systemic fear</td></tr>
+          <tr><td class="year">2013</td><td>Taper tantrum — Fed policy shift</td><td class="neg">−28%</td><td class="pos">+32%</td><td>Rising real rates, dollar strength</td></tr>
+          <tr><td class="year">2020</td><td>COVID-19 pandemic, infinite QE</td><td class="pos">+25%</td><td class="neg">−34% (Mar) then +18%</td><td>Monetary expansion, zero rates</td></tr>
+          <tr><td class="year">2022</td><td>Inflation shock, Fed tightening</td><td class="neg">−1%</td><td class="neg">−19%</td><td>Rising real rates briefly weighed</td></tr>
+          <tr><td class="year">2024</td><td>Geopolitical wars, Fed pivot</td><td class="pos">+27%</td><td class="pos">+24%</td><td>Central bank buying, tariff fears</td></tr>
+          <tr><td class="year">2025</td><td>De-dollarization, tariff wars</td><td class="pos">+50%+ vs Jan 2024</td><td class="neg">Flat–negative</td><td>Central banks, Trump tariffs, $5K break</td></tr>
+          <tr><td class="year">2026</td><td>Hormuz crisis, Strait closure</td><td class="pos">$5,228 (Mar 10)</td><td class="neg">S&P +0.5% YTD</td><td>Oil shock, inflation, de-dollarization</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>The pattern is consistent and striking: <strong>gold outperforms during every period of monetary expansion, geopolitical crisis, and systemic financial stress</strong>. The one period of notable underperformance was 2013–2015, when the Federal Reserve raised real interest rates sharply — the only reliable macro environment in which gold struggles. That window has since closed, and with global debt levels at all-time highs, central banks globally are structurally constrained from maintaining high real rates for extended periods.</p>
+
+    <div class="pull">"Gold rose from $252 in 1999 to $5,228 today. In that same period, it survived two equity crashes, a global banking collapse, a pandemic, a decade of quantitative easing, and a geopolitical crisis that closed the world's most important oil chokepoint. No stablecoin has existed long enough to test the same conditions."</div>
+
+    <h2>The Decade-by-Decade Track Record</h2>
+
+    <div class="table-scroll">
+      <table class="dec-tbl">
+        <thead><tr><th>Decade</th><th>Gold Return</th><th>Start Price</th><th>End Price</th><th>Primary Drivers</th></tr></thead>
+        <tbody>
+          <tr><td class="decade">1970s</td><td class="gain">+364%</td><td>$183/oz</td><td>$850/oz</td><td class="driver">Oil crises, USD off gold standard, stagflation, Vietnam War inflation</td></tr>
+          <tr><td class="decade">1980s</td><td class="loss">−52%</td><td>$850/oz</td><td>$410/oz</td><td class="driver">Volcker rate hikes, strong dollar, Reagan economic expansion</td></tr>
+          <tr><td class="decade">1990s</td><td class="loss">−34%</td><td>$410/oz</td><td>$271/oz</td><td class="driver">Tech boom, low inflation, central bank gold selling, dollar strength</td></tr>
+          <tr><td class="decade">2000s</td><td class="gain">+235%</td><td>$271/oz</td><td>$1,087/oz</td><td class="driver">9/11, Iraq War, housing bubble, Global Financial Crisis, QE</td></tr>
+          <tr><td class="decade">2010s</td><td class="gain">+7%</td><td>$1,087/oz</td><td>$1,520/oz</td><td class="driver">Mixed: peak in 2011, taper tantrum dip, recovery from 2016</td></tr>
+          <tr><td class="decade">2020–2026</td><td class="gain">+244%</td><td>$1,520/oz</td><td>$5,228/oz</td><td class="driver">COVID, zero rates, inflation return, de-dollarization, Hormuz crisis</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>The message of the decade table is nuanced and important: <strong>gold is not a reliable short-term trade</strong>. The 1980s and 1990s were deeply unfavorable — high real rates and strong equity markets crushed gold's appeal. But as a multi-decade savings asset for someone who cannot time the macro cycle precisely, gold's record is clear. Every period of monetary excess and geopolitical instability has been followed by a powerful gold bull market that more than compensated for the lean years.</p>
+
+    <hr class="sep">
+
+    <h2>Your Portfolio — Four Assets, Four Risk Profiles</h2>
+
+    <p>You currently hold savings across four on-chain assets: DAI, USDC, USDT, and now PAXG. Each has a distinct issuer structure, risk profile, and role in the portfolio. Understanding them side by side is the starting point for sizing the gold allocation appropriately.</p>
+
+    <div class="port-grid">
+      <div class="pg-cell pg-b">
+        <div class="pg-icon">DAI</div>
+        <div class="pg-name">DAI (Sky Protocol)</div>
+        <div class="pg-type">Decentralized over-collateralized stablecoin · MakerDAO / Sky</div>
+        <div class="pg-body">Soft-pegged to USD via crypto collateral (ETH, USDC, RWA). No central issuer. Governed by MKR/SKY holders. No single point of custodial failure, but exposed to smart contract risk and collateral liquidation cascades. Has maintained its peg through multiple crises. Market cap ~$5.4B.</div>
+        <div class="pg-risk"><span class="inline-tag tag-g">Low-Med Custodial Risk</span> &nbsp; <span class="inline-tag tag-g">Decentralized</span></div>
+      </div>
+      <div class="pg-cell pg-gr">
+        <div class="pg-icon">USDC</div>
+        <div class="pg-name">USDC (Circle)</div>
+        <div class="pg-type">Regulated fiat-backed stablecoin · Circle Internet Financial</div>
+        <div class="pg-body">Backed 1:1 by USD cash and short-dated US Treasuries. Regulated, monthly attestations by Deloitte. Briefly depegged to $0.87 in March 2023 during SVB bank failure (~$3.3B in reserves held there). Circle quickly remedied this. Considered the most institutionally trusted stablecoin.</div>
+        <div class="pg-risk"><span class="inline-tag tag-g">Low Risk</span> &nbsp; <span class="inline-tag" style="color:var(--amber);border-color:var(--amber);">Bank Custody Exposure</span></div>
+      </div>
+      <div class="pg-cell pg-r">
+        <div class="pg-icon">USDT</div>
+        <div class="pg-name">USDT (Tether)</div>
+        <div class="pg-type">Largest stablecoin by market cap · Tether Holdings Ltd. (BVI)</div>
+        <div class="pg-body">$140B+ market cap. Backed by mix of US Treasuries, repo agreements, and other assets. Offshore entity (BVI → El Salvador). Has faced repeated scrutiny over reserve transparency. Never depegged catastrophically, but carries higher opacity risk than Circle or Paxos. Operates outside US regulatory oversight.</div>
+        <div class="pg-risk"><span class="inline-tag tag-r">Higher Opacity</span> &nbsp; <span class="inline-tag tag-r">Offshore Entity</span></div>
+      </div>
+      <div class="pg-cell pg-g">
+        <div class="pg-icon">PAXG</div>
+        <div class="pg-name">PAXG (Paxos)</div>
+        <div class="pg-type">Gold-backed ERC-20 token · Paxos Trust Company (NYDFS)</div>
+        <div class="pg-body">Each token = 1 troy oz of allocated physical gold. Brink's vaults in London (LBMA-approved). Monthly third-party audits. NYDFS-regulated. Each token links to a specific bar serial number on-chain. No storage fee. 0.02% transaction fee. Tracks spot gold price directly. The only inflation-resistant asset in your portfolio.</div>
+        <div class="pg-risk"><span class="inline-tag tag-g">Regulated · Audited</span> &nbsp; <span class="inline-tag tag-au">Inflation Hedge</span></div>
+      </div>
+    </div>
+
+    <div class="risk-box">
+      <div class="rb-title">⚠ The Concentration Risk You May Not Have Noticed</div>
+      You currently hold three USD-pegged stablecoins from three different issuers. DAI, USDC, and USDT are all economically equivalent: they track the same underlying currency (the USD) and will all lose the same real purchasing power as inflation compounds. Diversification across stablecoin issuers reduces custodial risk — but it does <strong>not</strong> reduce inflation risk, currency risk, or the systemic risk of USD debasement. PAXG is the first asset in your portfolio that introduces a genuinely different economic exposure.
+    </div>
+
+    <h2><span class="gold-head">PAXG</span> vs Tether Gold — Why You Made the Right Call</h2>
+
+    <p>You specifically noted you considered Tether Gold (XAUT) but decided against it because you already have Tether exposure through USDT. That is sound portfolio thinking. Here is the full comparison to validate that reasoning — and to give you a clear picture of what you actually own with PAXG.</p>
+
+    <div class="table-scroll">
+      <table class="cmp-tbl">
+        <thead>
+          <tr>
+            <th>Factor</th>
+            <th class="paxg-head">PAXG (Paxos)</th>
+            <th class="xaut-head">XAUT (Tether Gold)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Issuer</td>
+            <td class="paxg-cell winner">Paxos Trust Company (New York)</td>
+            <td class="xaut-cell">TG Commodities Ltd. (Tether subsidiary)</td>
+          </tr>
+          <tr>
+            <td>Regulation</td>
+            <td class="paxg-cell winner">NYDFS-regulated trust + OCC oversight</td>
+            <td class="xaut-cell loser">Licensed El Salvador only; no US oversight</td>
+          </tr>
+          <tr>
+            <td>Audits</td>
+            <td class="paxg-cell winner">Monthly by Withum (previously KPMG) — bar-level detail</td>
+            <td class="xaut-cell">Quarterly by BDO Italia — pooled attestation</td>
+          </tr>
+          <tr>
+            <td>Gold Custody</td>
+            <td class="paxg-cell winner">Brink's vaults, London — LBMA bars</td>
+            <td class="xaut-cell">Swiss private vaults — less public detail</td>
+          </tr>
+          <tr>
+            <td>Bar Verification</td>
+            <td class="paxg-cell winner">Each token links to specific bar serial no. on-chain</td>
+            <td class="xaut-cell">Aggregate list; no per-wallet bar linkage</td>
+          </tr>
+          <tr>
+            <td>Blockchain</td>
+            <td class="paxg-cell">Ethereum ERC-20 only</td>
+            <td class="xaut-cell">Ethereum + Tron + TON (multi-chain)</td>
+          </tr>
+          <tr>
+            <td>Transaction Fee</td>
+            <td class="paxg-cell">0.02% on-chain transfer</td>
+            <td class="xaut-cell winner">Zero on-chain fee</td>
+          </tr>
+          <tr>
+            <td>Tether Exposure</td>
+            <td class="paxg-cell winner">None — completely independent issuer</td>
+            <td class="xaut-cell loser">Direct Tether subsidiary — compounds USDT risk</td>
+          </tr>
+          <tr>
+            <td>Physical Redemption</td>
+            <td class="paxg-cell">Min ~430 oz ($2M+) via Paxos; smaller via Alpha Bullion</td>
+            <td class="xaut-cell">Min 430 oz (~$2M+) — institutional only</td>
+          </tr>
+          <tr>
+            <td>Market Cap (Mar 2026)</td>
+            <td class="paxg-cell">~$2.6B</td>
+            <td class="xaut-cell">~$2.8B (slightly larger)</td>
+          </tr>
+          <tr>
+            <td>Best For</td>
+            <td class="paxg-cell winner">Long-term savers, regulated portfolios, cold storage</td>
+            <td class="xaut-cell">Active traders, Tether ecosystem users, multi-chain DeFi</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>The conclusion from the comparison table is clear: <strong>for a savings portfolio where your goal is long-term wealth preservation, PAXG is unambiguously superior</strong>. The monthly audits with bar-level on-chain verification give you a level of transparency that no other gold token provides. The NYDFS regulatory framework — the same body that oversees major New York banks — provides the legal backstop that Tether's El Salvador licensing cannot replicate. And critically: choosing PAXG means your gold exposure does not add to your existing Tether counterparty risk. You have made a prudent and well-reasoned decision.</p>
+
+    <hr class="sep">
+
+    <h2>Why PAXG Fits Perfectly in a Stablecoin-First Portfolio</h2>
+
+    <div class="why-list">
+      <div class="wl-item">
+        <div class="wl-num">01</div>
+        <div>
+          <div class="wl-title">It's the Only Asset That Beats Inflation Long-Term</div>
+          <div class="wl-desc">DAI, USDC, and USDT all lose purchasing power at the inflation rate. PAXG tracks gold, which has beaten inflation in every multi-decade period since Nixon ended the gold standard in 1971. Over 25 years: gold up ~1,767%. USD purchasing power down ~70%. The gap is not close.</div>
+        </div>
+      </div>
+      <div class="wl-item">
+        <div class="wl-num">02</div>
+        <div>
+          <div class="wl-title">Same Wallet, Same Chain — Zero Friction</div>
+          <div class="wl-desc">PAXG is ERC-20 on Ethereum — the same chain as DAI and USDC. It lives in your existing wallet alongside your stablecoins. No bridge risk. No new chain to manage. You can DCA into PAXG on-chain the same way you would DCA into any other ERC-20. Gas is the only cost.</div>
+        </div>
+      </div>
+      <div class="wl-item">
+        <div class="wl-num">03</div>
+        <div>
+          <div class="wl-title">Fractional Gold — No Minimum Buy</div>
+          <div class="wl-desc">Physical gold requires buying at least one gram (~$168) and usually involves dealer premiums of 3–8%. PAXG on-chain is divisible to 18 decimal places — you can buy $10 worth of gold. This makes regular, systematic savings in gold possible at any wallet balance.</div>
+        </div>
+      </div>
+      <div class="wl-item">
+        <div class="wl-num">04</div>
+        <div>
+          <div class="wl-title">No Storage Fees — Unlike Physical or ETFs</div>
+          <div class="wl-desc">Physical gold costs 0.3–0.6% per year in storage and insurance. Gold ETFs like GLD charge 0.40% annual expense ratio. PAXG charges no ongoing storage fee — only the 0.02% per on-chain transfer. For a buy-and-hold saver, PAXG is structurally cheaper than any traditional gold vehicle.</div>
+        </div>
+      </div>
+      <div class="wl-item">
+        <div class="wl-num">05</div>
+        <div>
+          <div class="wl-title">Macro Tailwinds Are the Strongest in Decades</div>
+          <div class="wl-desc">Central bank gold buying hit record levels in Q3 2025 (+28% YoY). China has bought gold for 11 consecutive months. The Hormuz crisis is reinforcing the de-dollarization trend that has powered gold above $5,000. JP Morgan projects gold above $5,000 by Q4 2026. The macro backdrop for gold has rarely been stronger.</div>
+        </div>
+      </div>
+      <div class="wl-item">
+        <div class="wl-num">06</div>
+        <div>
+          <div class="wl-title">Genuine Counterparty Diversification</div>
+          <div class="wl-desc">Your stablecoin exposure currently involves Circle, MakerDAO, and Tether — all USD, all US financial system-dependent. PAXG adds Paxos Trust Company + Brink's vault + LBMA physical gold — a completely separate trust chain from the dollar system. When the dollar weakens, PAXG does not.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="green-box">
+      <div class="gn-title">✓ What Your Portfolio Looks Like Now</div>
+      <div class="gn-body">
+        <strong>DAI</strong> — Decentralized USD exposure. Smart contract risk, no custodial single point of failure. Best for DeFi yield.<br><br>
+        <strong>USDC</strong> — Regulated USD exposure. Circle + bank reserves. Highest institutional trust among stablecoins.<br><br>
+        <strong>USDT</strong> — Liquid USD exposure. Largest ecosystem. Higher opacity; treat as operational liquidity, not long-term savings vehicle.<br><br>
+        <strong>PAXG</strong> — Physical gold exposure on Ethereum. Inflation hedge. No USD correlation. NYDFS regulated. Monthly audited. Your only long-term purchasing power protector.<br><br>
+        This is a well-structured on-chain savings portfolio. The one recommendation: consider sizing PAXG as at least 15–25% of total savings — enough to meaningfully protect against inflationary erosion of the stablecoin holdings over a 5–10 year horizon.
+      </div>
+    </div>
+
+    <h2>The Current Macro Setup — Why Right Now Matters</h2>
+
+    <p>You are adding PAXG at a moment when the macro case for gold is arguably the strongest since the post-2008 era. Three independent forces are simultaneously driving gold demand to record levels:</p>
+
+    <p><strong>First, the Strait of Hormuz crisis.</strong> The closure of the world's most important oil transit route — carrying 20 million barrels per day — is stoking energy inflation fears globally. Historically, oil supply shocks create the exact macro conditions gold thrives in: inflationary pressure, geopolitical instability, and central bank uncertainty. Gold surged past $5,300 on Middle East tensions in early March and is staging a powerful reversal today, up 2.44%.</p>
+
+    <p><strong>Second, de-dollarization.</strong> Central banks globally — led by China (11 consecutive months of buying), Poland, Turkey, and India — are replacing US Treasury reserves with gold at the fastest pace in decades. Q3 2025 central bank purchases were up 28% year-over-year. When the world's largest institutional buyers are systematically accumulating an asset, the long-term supply-demand dynamic is structurally bullish.</p>
+
+    <p><strong>Third, the real interest rate environment.</strong> Gold's one reliable enemy is high real interest rates — the Volcker era of the 1980s and the taper tantrum of 2013–2015 are the clearest examples. With global debt at all-time highs and governments in the US, Europe, and Japan structurally dependent on low borrowing costs, the window for sustained high real rates is narrow. Every rate cut cycle historically unleashes the next gold leg up.</p>
+
+    <div class="conclusion">
+      <h3>The Case in One Paragraph</h3>
+      <p>You hold three USD-pegged stablecoins. They protect you from crypto volatility. They do not protect you from inflation, dollar debasement, geopolitical monetary stress, or the systemic risk of the fiat system itself. Gold has done exactly that — consistently, over 25 years, through every crisis this century — rising from $254 to $5,228. PAXG puts that record on Ethereum: regulated by the NYDFS, audited monthly by a top-tier firm, backed by allocated bars in Brink's London vaults with serial numbers linked to your wallet address. <strong>Choosing PAXG over Tether Gold specifically avoids adding Tether counterparty risk on top of your existing USDT exposure — the single best reason for your choice.</strong> The macro tailwinds — Hormuz crisis, de-dollarization, central bank accumulation — have rarely been stronger. Adding gold to a stablecoin portfolio is not speculation. It is completing the portfolio.</p>
+    </div>
+
+  </article>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="sb-card">
+      <div class="sb-head">Gold Price Milestones</div>
+      <div class="sb-body">
+        <div class="sb-row"><span class="sb-k">1999 low</span><span class="sb-v gold">$252/oz</span></div>
+        <div class="sb-row"><span class="sb-k">2001 (dot-com low)</span><span class="sb-v gold">$254/oz</span></div>
+        <div class="sb-row"><span class="sb-k">2008 peak</span><span class="sb-v gold">~$1,000/oz</span></div>
+        <div class="sb-row"><span class="sb-k">2011 ATH (then)</span><span class="sb-v gold">$1,895/oz</span></div>
+        <div class="sb-row"><span class="sb-k">2020 COVID high</span><span class="sb-v gold">~$2,067/oz</span></div>
+        <div class="sb-row"><span class="sb-k">Apr 2025 milestone</span><span class="sb-v gold">$3,500/oz</span></div>
+        <div class="sb-row"><span class="sb-k">Jan 2026 ATH</span><span class="sb-v gold">$5,598/oz</span></div>
+        <div class="sb-row"><span class="sb-k">Today (Mar 10, 2026)</span><span class="sb-v up">$5,228/oz</span></div>
+        <div class="sb-row"><span class="sb-k">Gain since 1999</span><span class="sb-v up">+1,973%</span></div>
+        <div class="sb-row"><span class="sb-k">JP Morgan target</span><span class="sb-v gold">$5,000+ Q4 2026</span></div>
+        <div class="sb-row"><span class="sb-k">Crisis analysts</span><span class="sb-v gold">$6,300–$7,200</span></div>
+      </div>
+    </div>
+
+    <div class="sb-card">
+      <div class="sb-head">PAXG Key Stats</div>
+      <div class="sb-body">
+        <div class="sb-row"><span class="sb-k">Price</span><span class="sb-v gold">~$5,216</span></div>
+        <div class="sb-row"><span class="sb-k">Tracks</span><span class="sb-v">1 troy oz spot gold</span></div>
+        <div class="sb-row"><span class="sb-k">Market Cap</span><span class="sb-v">~$2.61B</span></div>
+        <div class="sb-row"><span class="sb-k">All-Time High</span><span class="sb-v gold">$5,619 (Jan 29 2026)</span></div>
+        <div class="sb-row"><span class="sb-k">All-Time Low</span><span class="sb-v dn">$1,399 (Oct 2019)</span></div>
+        <div class="sb-row"><span class="sb-k">Gain from ATL</span><span class="sb-v up">+269%</span></div>
+        <div class="sb-row"><span class="sb-k">Blockchain</span><span class="sb-v">Ethereum (ERC-20)</span></div>
+        <div class="sb-row"><span class="sb-k">Issuer</span><span class="sb-v">Paxos Trust (NYDFS)</span></div>
+        <div class="sb-row"><span class="sb-k">Custody</span><span class="sb-v">Brink's London · LBMA</span></div>
+        <div class="sb-row"><span class="sb-k">Audit frequency</span><span class="sb-v up">Monthly</span></div>
+        <div class="sb-row"><span class="sb-k">Transaction fee</span><span class="sb-v">0.02%</span></div>
+        <div class="sb-row"><span class="sb-k">Storage fee</span><span class="sb-v up">None</span></div>
+        <div class="sb-row"><span class="sb-k">Contract address</span><span class="sb-v neu">0x4580...af78</span></div>
+      </div>
+    </div>
+
+    <div class="sb-card">
+      <div class="sb-head">Crisis Performance (Gold)</div>
+      <div class="ct-wrap">
+        <div class="ct-row">
+          <div class="ct-dot" style="background:var(--green)"></div>
+          <div class="ct-content">
+            <div class="ct-year">2008 GFC</div>
+            <div class="ct-desc">Global banking system failure. Lehman collapsed.</div>
+            <div class="ct-perf" style="color:var(--green)">Gold: +5% in '08, +25% in '09</div>
+          </div>
+        </div>
+        <div class="ct-row">
+          <div class="ct-dot" style="background:var(--green)"></div>
+          <div class="ct-content">
+            <div class="ct-year">2020 COVID</div>
+            <div class="ct-desc">Pandemic, infinite QE, zero rates globally.</div>
+            <div class="ct-perf" style="color:var(--green)">Gold: +25% annual return</div>
+          </div>
+        </div>
+        <div class="ct-row">
+          <div class="ct-dot" style="background:var(--red)"></div>
+          <div class="ct-content">
+            <div class="ct-year">2013 Taper</div>
+            <div class="ct-desc">Fed signaled rate rises. Real rates spiked.</div>
+            <div class="ct-perf" style="color:var(--red)">Gold: −28% (only major bad year)</div>
+          </div>
+        </div>
+        <div class="ct-row">
+          <div class="ct-dot" style="background:var(--green)"></div>
+          <div class="ct-content">
+            <div class="ct-year">2024–2026</div>
+            <div class="ct-desc">Tariffs, de-dollarization, Hormuz crisis.</div>
+            <div class="ct-perf" style="color:var(--green)">Gold: +73% from Jan 2024 low</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sb-card">
+      <div class="sb-head alt">Risk Levels by Asset</div>
+      <div class="risk-section">
+        <div class="risk-row">
+          <div class="risk-top"><span>PAXG (Custodial)</span><span class="risk-level low">LOW</span></div>
+          <div class="risk-bg"><div class="risk-fill-g" style="width:20%"></div></div>
+        </div>
+        <div class="risk-row">
+          <div class="risk-top"><span>USDC (Circle)</span><span class="risk-level low">LOW</span></div>
+          <div class="risk-bg"><div class="risk-fill-g" style="width:25%"></div></div>
+        </div>
+        <div class="risk-row">
+          <div class="risk-top"><span>DAI (Smart Contract)</span><span class="risk-level med">MEDIUM</span></div>
+          <div class="risk-bg"><div class="risk-fill-a" style="width:45%"></div></div>
+        </div>
+        <div class="risk-row">
+          <div class="risk-top"><span>USDT (Tether)</span><span class="risk-level med">MEDIUM</span></div>
+          <div class="risk-bg"><div class="risk-fill-a" style="width:55%"></div></div>
+        </div>
+        <div class="risk-row">
+          <div class="risk-top"><span>XAUT (Tether Gold)</span><span class="risk-level med">MEDIUM</span></div>
+          <div class="risk-bg"><div class="risk-fill-a" style="width:55%"></div></div>
+        </div>
+        <div class="risk-row">
+          <div class="risk-top"><span>Unhedged USD stables (all)</span><span class="risk-level high">INFLATION</span></div>
+          <div class="risk-bg"><div class="risk-fill-r" style="width:85%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sb-card">
+      <div class="sb-head">Why Not XAUT For You</div>
+      <div class="sb-body">
+        <div class="sb-row"><span class="sb-k">You already hold</span><span class="sb-v dn">USDT (Tether)</span></div>
+        <div class="sb-row"><span class="sb-k">XAUT issuer</span><span class="sb-v dn">Tether subsidiary</span></div>
+        <div class="sb-row"><span class="sb-k">Adding XAUT would</span><span class="sb-v dn">Double Tether exposure</span></div>
+        <div class="sb-row"><span class="sb-k">PAXG issuer</span><span class="sb-v up">Paxos (independent)</span></div>
+        <div class="sb-row"><span class="sb-k">PAXG regulatory body</span><span class="sb-v up">NYDFS (US)</span></div>
+        <div class="sb-row"><span class="sb-k">PAXG audit frequency</span><span class="sb-v up">Monthly</span></div>
+        <div class="sb-row"><span class="sb-k">Your call</span><span class="sb-v up">✓ Correct choice</span></div>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<!-- FOOTNOTE -->
+<div class="footnote">
+  <div class="fn-title">Important Disclosures</div>
+  <p>This article is for educational and informational purposes only. It does not constitute investment advice or a recommendation to buy any asset. All investments carry risk. Gold and gold-backed tokens can decline in value — the 2013 drawdown of −28% demonstrates this. On-chain assets including PAXG carry smart contract risk, issuer counterparty risk, and custody risk in addition to commodity price risk. Stablecoins carry depeg risk as demonstrated by USDC in March 2023. Past performance does not guarantee future results. Consult a licensed financial advisor before making savings or investment decisions.</p>
+  <p>Sources: VisualCapitalist (gold annual returns), Vaulted.com (100-year gold history), JM Bullion, Bankrate, USAGOLD (Mar 10 2026 spot), CoinMarketCap/CoinGecko (PAXG price/market cap), Flashift.app (PAXG vs XAUT 2026), WEEX Crypto Wiki (PAXG vs XAUT guide), BingX (tokenized gold comparison), Paxos.com. Data as of March 10, 2026.</p>
+</div>
+
+</body>
+</html>
