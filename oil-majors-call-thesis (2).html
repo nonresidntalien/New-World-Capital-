@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Hormuz Doctrine: The Oil Majors Long Thesis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@300;400;500;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #080907;
+    --bg2:       #0e100b;
+    --surface:   #111310;
+    --surface2:  #191b16;
+    --border:    rgba(180,140,40,0.06);
+    --border2:   rgba(180,140,40,0.12);
+    --amber:     #c87820;
+    --amber-b:   #e8a030;
+    --amber-dim: rgba(200,120,32,0.10);
+    --amber-bd:  rgba(200,120,32,0.25);
+    --amber-dk:  #7a4c0c;
+    --red:       #c0272d;
+    --red-dim:   rgba(192,39,45,0.08);
+    --red-b:     rgba(192,39,45,0.22);
+    --green:     #2e9e6a;
+    --green-dim: rgba(46,158,106,0.10);
+    --green-b:   rgba(46,158,106,0.25);
+    --blue:      #3a78c4;
+    --blue-dim:  rgba(58,120,196,0.08);
+    --blue-b:    rgba(58,120,196,0.22);
+    --text:      #c4bfb4;
+    --text-dim:  #686460;
+    --text-bright:#ede8de;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.78;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content:'';
+    position:fixed; inset:0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.025) 2px, rgba(0,0,0,0.025) 4px);
+    pointer-events:none; z-index:0;
+  }
+
+  /* TICKER */
+  .ticker-wrap {
+    background: linear-gradient(90deg, #120f06, #201708, #120f06);
+    border-bottom: 1px solid var(--amber-bd);
+    overflow: hidden; height: 32px;
+    display: flex; align-items: center;
+    position: relative; z-index: 10;
+  }
+  .ticker-badge {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 12px; letter-spacing: 0.16em;
+    color: var(--bg); background: var(--amber);
+    padding: 0 16px; height: 100%;
+    display: flex; align-items: center;
+    white-space: nowrap; flex-shrink: 0;
+    border-right: 1px solid var(--amber-dk);
+  }
+  .ticker-inner {
+    display: flex;
+    animation: tick 44s linear infinite;
+    white-space: nowrap;
+  }
+  .tick-item {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 500;
+    padding: 0 28px;
+    color: rgba(200,120,32,0.85);
+    border-right: 1px solid var(--border2);
+    letter-spacing: 0.04em;
+  }
+  .tick-item b { color: var(--amber-b); margin-right: 5px; }
+  .tick-item .up { color: #6ecc96; }
+  .tick-item .dn { color: #e07070; }
+  @keyframes tick { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+  /* MASTHEAD */
+  .masthead {
+    border-bottom: 1px solid var(--border2);
+    padding: 14px 52px;
+    display: flex; justify-content: space-between; align-items: center;
+    position: relative; z-index: 2;
+  }
+  .pub-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px; letter-spacing: 0.2em;
+    color: var(--amber);
+  }
+  .pub-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.1em;
+    color: var(--text-dim);
+  }
+
+  /* HERO */
+  .hero {
+    max-width: 1140px; margin: 0 auto;
+    padding: 70px 52px 52px;
+    position: relative; z-index: 2;
+    border-bottom: 1px solid var(--border2);
+  }
+  .hero::after {
+    content: '⛽';
+    position: absolute; right: 52px; top: 28px;
+    font-size: 220px; line-height: 1;
+    color: rgba(200,120,32,0.035);
+    pointer-events: none;
+  }
+  .cat-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--amber);
+    border: 1px solid var(--amber-bd);
+    display: inline-block; padding: 4px 12px;
+    margin-bottom: 24px;
+  }
+  h1.headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 5.2vw, 72px);
+    line-height: 0.95; color: var(--text-bright);
+    max-width: 820px; letter-spacing: 0.01em;
+    margin-bottom: 20px;
+  }
+  h1.headline em { color: var(--amber-b); font-style: normal; }
+  .deck {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic; font-size: 19px;
+    font-weight: 300; color: var(--text-dim);
+    max-width: 680px; line-height: 1.55;
+  }
+
+  /* METRICS */
+  .metric-wrap {
+    max-width: 1140px; margin: 0 auto;
+    padding: 0 52px 52px;
+    position: relative; z-index: 2;
+  }
+  .metrics {
+    display: grid; grid-template-columns: repeat(5,1fr);
+    gap: 1px; background: var(--border2);
+    border: 1px solid var(--border2);
+    margin-top: 32px;
+  }
+  .mc {
+    background: var(--surface);
+    padding: 16px; position: relative;
+  }
+  .mc::after {
+    content:''; position:absolute; top:0;left:0;right:0; height:2px;
+  }
+  .mc-a::after  { background: var(--amber); }
+  .mc-r::after  { background: var(--red); }
+  .mc-g::after  { background: var(--green); }
+  .mc-b::after  { background: var(--blue); }
+  .m-lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7.5px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-dim); margin-bottom: 5px;
+  }
+  .m-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 20px; font-weight: 700;
+    color: var(--text-bright); line-height: 1;
+  }
+  .m-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px; margin-top: 4px;
+  }
+  .up  { color: var(--green); }
+  .dn  { color: var(--red); }
+  .neu { color: var(--text-dim); }
+  .am  { color: var(--amber-b); }
+
+  /* LAYOUT */
+  .main {
+    max-width: 1140px; margin: 0 auto;
+    padding: 0 52px;
+    display: grid; grid-template-columns: 1fr 304px;
+    gap: 54px; align-items: start;
+    position: relative; z-index: 2;
+  }
+
+  /* ARTICLE */
+  .article h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px; letter-spacing: 0.04em;
+    color: var(--text-bright);
+    border-bottom: 1px solid var(--border2);
+    padding-bottom: 10px; margin: 52px 0 16px;
+  }
+  .article h2:first-child { margin-top: 0; }
+  .article h2 .ah { color: var(--amber-b); }
+  .article h2 .rh { color: #e07070; }
+  .article h3 {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic; font-size: 17px;
+    color: var(--amber); margin: 26px 0 8px;
+  }
+  .article p {
+    font-size: 16px; line-height: 1.85;
+    color: var(--text); margin-bottom: 17px;
+  }
+  .article p strong { color: var(--text-bright); }
+
+  .pull {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic; font-size: 21px;
+    line-height: 1.4; color: var(--amber);
+    border-left: 3px solid var(--amber);
+    padding: 10px 0 10px 22px; margin: 32px 0;
+  }
+
+  /* TABLES */
+  .data-tbl {
+    width: 100%; border-collapse: collapse;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; border: 1px solid var(--border2);
+    margin: 18px 0;
+  }
+  .data-tbl thead th {
+    background: var(--surface2);
+    color: var(--amber); font-size: 8px;
+    letter-spacing: 0.13em; text-transform: uppercase;
+    padding: 10px 13px; text-align: left;
+    border-bottom: 1px solid var(--border2);
+    white-space: nowrap;
+  }
+  .data-tbl tbody tr { border-bottom: 1px solid var(--border); transition: background 0.12s; }
+  .data-tbl tbody tr:hover { background: var(--surface2); }
+  .data-tbl tbody tr:last-child { border-bottom: none; }
+  .data-tbl tbody tr:nth-child(even) { background: rgba(255,255,255,0.012); }
+  .data-tbl td { padding: 9px 13px; color: var(--text); }
+  .data-tbl td.am  { color: var(--amber-b); font-weight: 700; }
+  .data-tbl td.pos { color: var(--green); font-weight: 700; }
+  .data-tbl td.neg { color: var(--red); font-weight: 700; }
+  .data-tbl td.neu { color: var(--text-dim); }
+  .data-tbl td.bright { color: var(--text-bright); font-weight: 700; }
+
+  /* BOXES */
+  .amber-box {
+    background: var(--amber-dim);
+    border: 1px solid var(--amber-bd);
+    border-left: 3px solid var(--amber);
+    padding: 16px 20px; margin: 18px 0;
+  }
+  .ab-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--amber); margin-bottom: 10px;
+  }
+  .ab-body {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--text); line-height: 1.65;
+  }
+  .ab-body strong { color: var(--text-bright); }
+
+  .red-box {
+    background: var(--red-dim);
+    border: 1px solid var(--red-b);
+    border-left: 3px solid var(--red);
+    padding: 16px 20px; margin: 18px 0;
+  }
+  .rb-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 10px;
+  }
+  .rb-body {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--text); line-height: 1.65;
+  }
+
+  .green-box {
+    background: var(--green-dim);
+    border: 1px solid var(--green-b);
+    border-left: 3px solid var(--green);
+    padding: 16px 20px; margin: 18px 0;
+  }
+  .gn-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--green); margin-bottom: 10px;
+  }
+  .gn-body {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--text); line-height: 1.65;
+  }
+  .gn-body strong { color: var(--text-bright); }
+
+  /* LEVERAGE COMPARISON */
+  .lev-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2px; background: var(--border2);
+    border: 1px solid var(--border2); margin: 18px 0;
+  }
+  .lev-cell { background: var(--surface); padding: 18px; position: relative; }
+  .lev-cell::before { content:''; display:block; height:3px; margin:-18px -18px 14px; background: var(--amber); }
+  .lev-cell.red-top::before { background: var(--red); }
+  .lev-head {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--amber-b); margin-bottom: 10px;
+  }
+  .lev-cell.red-top .lev-head { color: #e07070; }
+  .lev-row {
+    display: flex; justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
+    padding: 5px 0; border-bottom: 1px solid var(--border);
+  }
+  .lev-row:last-child { border-bottom: none; }
+  .lev-k { color: var(--text-dim); }
+  .lev-v { color: var(--text-bright); font-weight: 700; }
+  .lev-v.up { color: var(--green); }
+  .lev-v.dn { color: var(--red); }
+  .lev-v.am { color: var(--amber-b); }
+
+  /* DCA TIMELINE */
+  .dca-list { display: flex; flex-direction: column; gap: 2px; margin: 18px 0; }
+  .dca-item {
+    display: grid; grid-template-columns: 28px 1fr;
+    gap: 14px; align-items: start;
+    background: var(--surface); border: 1px solid var(--border2);
+    padding: 13px 16px; position: relative; overflow: hidden;
+  }
+  .dca-item::before {
+    content:''; position:absolute; top:0;left:0;bottom:0; width:3px;
+    background: var(--amber);
+  }
+  .dca-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 30px; color: rgba(200,120,32,0.12);
+    line-height: 1; align-self: center;
+  }
+  .dca-phase {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--amber); margin-bottom: 3px;
+  }
+  .dca-desc {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--text-dim); line-height: 1.55;
+  }
+  .dca-action {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 700;
+    color: var(--green); margin-top: 4px;
+  }
+
+  /* CONCLUSION */
+  .conclusion {
+    background: linear-gradient(135deg, rgba(200,120,32,0.08), rgba(200,120,32,0.03));
+    border: 1px solid var(--amber-bd);
+    padding: 32px 36px; margin-top: 48px;
+    position: relative;
+  }
+  .conclusion::before {
+    content:''; position:absolute; top:0;left:0;right:0; height:3px;
+    background: linear-gradient(90deg, var(--amber), var(--amber-b));
+  }
+  .conclusion h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px; letter-spacing: 0.05em;
+    color: var(--text-bright); margin-bottom: 12px;
+  }
+  .conclusion p {
+    font-size: 15px; line-height: 1.85; color: var(--text); margin-bottom: 0;
+  }
+  .conclusion p strong { color: var(--text-bright); }
+
+  .sep { border: none; border-top: 1px solid var(--border2); margin: 44px 0; }
+
+  /* SIDEBAR */
+  .sidebar { position: sticky; top: 24px; }
+  .sb-card {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    margin-bottom: 16px;
+  }
+  .sb-head {
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border2);
+    padding: 9px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--amber);
+  }
+  .sb-head.alt { color: var(--text-dim); }
+  .sb-body { padding: 14px; }
+  .sb-row {
+    display: flex; justify-content: space-between;
+    align-items: baseline; padding: 5.5px 0;
+    border-bottom: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
+  }
+  .sb-row:last-child { border-bottom: none; }
+  .sb-k { color: var(--text-dim); font-size: 8.5px; }
+  .sb-v { color: var(--text-bright); font-weight: 700; }
+  .sb-v.up { color: var(--green); }
+  .sb-v.dn { color: var(--red); }
+  .sb-v.am { color: var(--amber-b); }
+  .sb-v.neu { color: var(--text-dim); }
+
+  /* RISK BARS */
+  .risk-section { padding: 12px 14px 14px; }
+  .risk-row { margin-bottom: 10px; }
+  .risk-row:last-child { margin-bottom: 0; }
+  .risk-top {
+    display: flex; justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; color: var(--text-dim); margin-bottom: 4px;
+  }
+  .risk-level { font-weight: 700; }
+  .risk-level.low  { color: var(--green); }
+  .risk-level.med  { color: var(--amber); }
+  .risk-level.high { color: var(--red); }
+  .risk-bg { height: 3px; background: var(--border2); }
+  .risk-fill-g { height: 100%; background: var(--green); }
+  .risk-fill-a { height: 100%; background: var(--amber); }
+  .risk-fill-r { height: 100%; background: var(--red); }
+
+  /* SCENARIO CARD */
+  .sc-wrap { padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+  .sc-row {
+    background: var(--bg2); border: 1px solid var(--border2);
+    padding: 10px 12px; position: relative;
+  }
+  .sc-row::before { content:''; position:absolute; top:0;left:0;bottom:0; width:3px; }
+  .sc-bull::before { background: var(--green); }
+  .sc-base::before { background: var(--amber); }
+  .sc-bear::before { background: var(--red); }
+  .sc-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+  .sc-bull .sc-label { color: var(--green); }
+  .sc-base .sc-label { color: var(--amber-b); }
+  .sc-bear .sc-label { color: #e07070; }
+  .sc-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 700; color: var(--text-bright);
+  }
+  .sc-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px; color: var(--text-dim); margin-top: 2px;
+  }
+
+  /* DOCTRINE */
+  .doctrine {
+    padding: 14px;
+    font-family: 'DM Serif Display', serif;
+    font-style: italic; font-size: 13px;
+    color: var(--amber); line-height: 1.6;
+    border-top: 1px solid var(--border2);
+    text-align: center;
+  }
+
+  /* FOOTNOTE */
+  .footnote {
+    max-width: 1140px; margin: 64px auto 0;
+    padding: 24px 52px;
+    border-top: 1px solid var(--border2);
+    position: relative; z-index: 2;
+  }
+  .fn-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--text-dim); margin-bottom: 8px;
+  }
+  .footnote p {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px; color: var(--text-dim);
+    line-height: 1.75; margin-bottom: 0;
+  }
+
+  @media(max-width:900px){
+    .main { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+    .hero, .main, .footnote, .metric-wrap { padding-left: 22px; padding-right: 22px; }
+    .lev-grid { grid-template-columns: 1fr; }
+    .metrics { grid-template-columns: repeat(2,1fr); }
+  }
+
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border2); }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(16px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  .hero { animation: fadeUp 0.55s ease both 0.05s; }
+  .metric-wrap { animation: fadeUp 0.55s ease both 0.15s; }
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-badge">OIL · LONG</div>
+  <div style="overflow:hidden;flex:1;">
+    <div class="ticker-inner">
+      <div class="tick-item"><b>WTI (Mar 10)</b> ~$83/bbl <span class="dn">▼ −12% false signal entry</span></div>
+      <div class="tick-item"><b>BRENT PEAK</b> $126/bbl <span class="up">▲ since Feb 28</span></div>
+      <div class="tick-item"><b>HORMUZ STATUS</b> Closed · 150+ ships anchored</div>
+      <div class="tick-item"><b>IRAQ OUTPUT</b> <span class="dn">−70% · 1.3M bpd (from 4.3M)</span></div>
+      <div class="tick-item"><b>QATAR LNG</b> Force Majeure declared Mar 4</div>
+      <div class="tick-item"><b>XOM BREAKEVEN</b> ~$35/bbl · At $83: high FCF</div>
+      <div class="tick-item"><b>CVX BREAKEVEN</b> ~$50/bbl · Dividend yield 4.1%</div>
+      <div class="tick-item"><b>NWC POSITION</b> Long XOM/CVX · DCA · 1:3–1:5 · 10 months</div>
+      <div class="tick-item"><b>THESIS HORIZON</b> March 2026 → January 2027</div>
+      <div class="tick-item"><b>WTI (Mar 10)</b> ~$83/bbl <span class="dn">▼ −12% false signal entry</span></div>
+      <div class="tick-item"><b>BRENT PEAK</b> $126/bbl · Highest in 4 years</div>
+      <div class="tick-item"><b>HORMUZ SUPPLY</b> 20% of global seaborne oil effectively halted</div>
+      <div class="tick-item"><b>IRAQ OUTPUT</b> <span class="dn">−70% · Storage at capacity</span></div>
+      <div class="tick-item"><b>EU GAS</b> <span class="dn">+63% last week · QatarEnergy offline</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="pub-name">New World Capital &nbsp;/&nbsp; Energy &amp; Geopolitics</div>
+  <div class="pub-date">Tuesday, March 10, 2026 &nbsp;|&nbsp; WTI ~$83 · Brent Peak $126 &nbsp;|&nbsp; Long Thesis · XOM · CVX</div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="cat-tag">Long Thesis · Macro · Commodities · Geopolitics · Leveraged DCA</div>
+  <h1 class="headline">The Hormuz<br>Doctrine:<br><em>The Oil Majors</em><br>Long Thesis</h1>
+  <p class="deck">The Strait of Hormuz is closed. Iran's Supreme Leader is dead. Iraq is producing 1.3 million barrels per day instead of 4.3 million. Qatar has declared force majeure on LNG. Today's 12% selloff — triggered by a false social media post from the Energy Secretary — is not a resolution. It is an entry. Here is the 10-month leveraged DCA thesis for XOM and CVX.</p>
+</div>
+
+<!-- METRICS -->
+<div class="metric-wrap">
+  <div class="metrics">
+    <div class="mc mc-a">
+      <div class="m-lbl">WTI Crude (Mar 10)</div>
+      <div class="m-val">~$83</div>
+      <div class="m-sub dn">▼ −12% on false Navy escort claim</div>
+    </div>
+    <div class="mc mc-r">
+      <div class="m-lbl">Brent Crude Peak</div>
+      <div class="m-val">$126</div>
+      <div class="m-sub am">▲ Highest since 2022 · Since Feb 28</div>
+    </div>
+    <div class="mc mc-r">
+      <div class="m-lbl">Iraq Production Loss</div>
+      <div class="m-val">−70%</div>
+      <div class="m-sub dn">1.3M bpd from 4.3M bpd</div>
+    </div>
+    <div class="mc mc-a">
+      <div class="m-lbl">Ships Stranded</div>
+      <div class="m-val">150+</div>
+      <div class="m-sub neu">Anchored outside the strait</div>
+    </div>
+    <div class="mc mc-g">
+      <div class="m-lbl">NWC Position</div>
+      <div class="m-val">LONG</div>
+      <div class="m-sub up">DCA · XOM + CVX · 1:3 core</div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+<article class="article">
+
+  <h2>What Actually <span class="ah">Happened</span></h2>
+
+  <p>On February 28, 2026, the United States and Israel conducted joint military strikes on Iran, including the killing of Supreme Leader Ali Khamenei. Iran retaliated immediately — launching missile and drone attacks on US military bases, Israeli territory, and Gulf states. The Islamic Revolutionary Guard Corps issued warnings prohibiting vessel passage through the Strait of Hormuz, and within 48 hours commercial tanker traffic had collapsed by approximately 70%, with over 150 ships anchoring outside the strait to wait out the risk. By March 2, an IRGC commander officially confirmed the strait was closed and threatened to set ablaze any vessel attempting to transit.</p>
+
+  <p>Major container shipping companies — Maersk, CMA CGM, and Hapag-Lloyd — suspended all transits. Simultaneously, Houthi-controlled Yemen announced it would resume attacks on commercial ships in the Red Sea, forcing Suez Canal traffic to reroute around Africa's Cape of Good Hope. At least five tankers were struck, two crew members killed, and the Stena Imperative was struck twice at the port of Bahrain. <strong>This is not a geopolitical risk premium event. This is real supply destruction in real time.</strong></p>
+
+  <div class="amber-box">
+    <div class="ab-title">⚡ Today's −12% Drop Is the Entry Signal</div>
+    <div class="ab-body">WTI fell 12% on a single false social media post from Energy Secretary Chris Wright claiming the US Navy had escorted a tanker through the strait. The White House denied the claim within hours: <strong>"The U.S. Navy has not escorted a tanker or a vessel at this time."</strong> No tanker has transited. No ships are moving. Iraq is still at 1.3M bpd. Qatar is still offline. Nothing in the physical supply picture changed. The market repriced on a verbal intervention that turned out to be false. This is the reflexive loop in action — and it is the DCA entry your thesis was built for.</div>
+  </div>
+
+  <table class="data-tbl">
+    <thead><tr>
+      <th>Date</th><th>Event</th><th>Market Impact</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="am">Feb 28</td><td>US-Israel strike Iran · Khamenei killed · IRGC retaliates across Gulf</td><td class="pos">Brent surges from ~$80</td></tr>
+      <tr><td class="am">Mar 1–2</td><td>Zero commercial transit · IRGC officially closes Hormuz</td><td class="neg">Supply disruption confirmed real</td></tr>
+      <tr><td class="am">Mar 2</td><td>Qatar halts LNG output · Force majeure declared Mar 4</td><td class="neg">EU gas +63% in one week</td></tr>
+      <tr><td class="am">Mar 4–8</td><td>Iraq production −70% · Storage at capacity · Brent peaks $126</td><td class="pos">Peak panic pricing</td></tr>
+      <tr><td class="am">Mar 10</td><td>Energy Sec. Wright posts false Navy escort claim · WH denies</td><td class="neg">WTI −12% to ~$83 on nothing</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Why This Does Not <span class="rh">Resolve Quickly</span></h2>
+
+  <p>Markets are pricing in a quick diplomatic solution. Bob McNally of Rapidan Energy Group noted on March 10 that there is "a lot of optimism in the market" — and that optimism is exactly the mispricing this thesis is built to exploit. The political, operational, and infrastructural realities of the Hormuz crisis make rapid resolution structurally unlikely.</p>
+
+  <p>Khamenei is dead. Iran has no singular negotiating counterpart for weeks or months as leadership consolidates. Insurance premiums are at six-year highs, and insurers have stated they will not return until there is 100% certainty of safety — which means even a genuine ceasefire announcement will not reopen shipping immediately. Qatar's LNG plant has never been fully taken offline before; according to Rapidan Energy, it will take weeks, not days, to restart after the all-clear is given. Iraq's southern fields are down 70%, storage is at capacity, and production cannot resume without a functioning export route.</p>
+
+  <p>The Saudi East-West Pipeline and the UAE's Fujairah pipeline offer partial alternatives, but terminal infrastructure at Jeddah limits throughput to a fraction of normal Hormuz volumes. The G7 has asked the IEA to prepare scenarios for a coordinated emergency stockpile release — but the combined 1.2 billion barrel reserve buys days or weeks, not months. <strong>These are bridges, not solutions.</strong></p>
+
+  <div class="pull">"Traders assumed for decades that no country would be allowed to shut the Strait. The fact that it has happened at all is completely calamitous and unexpected." — Bob McNally, Rapidan Energy Group</div>
+
+  <h2>XOM &amp; CVX — <span class="ah">The Fundamental Case</span></h2>
+
+  <p>ExxonMobil and Chevron are not pure-play crude bets. They are vertically integrated energy majors with refining, chemicals, LNG, and upstream production — meaning they benefit from the oil price spike and the supply chain disruption simultaneously. Their balance sheets were rebuilt post-2020 to withstand low oil environments, which means at $80+ WTI they are generating exceptional free cash flow. And critically: <strong>both companies produce primarily from the Permian Basin — they have zero Hormuz exposure.</strong></p>
+
+  <p>XOM's Pioneer acquisition added approximately 600,000 barrels per day of low-cost Permian production. CVX's Tengiz expansion and Guyana exposure (via Hess) further insulate it from Gulf supply disruptions. While Asian refiners scramble for Atlantic basin barrels and European gas markets spike, XOM and CVX are positioned as premium non-Gulf suppliers with available capacity. The disruption doesn't threaten them — it benefits them.</p>
+
+  <h3>The Dividend Advantage</h3>
+  <p>XOM yields approximately 3.4% annually and CVX approximately 4.1%. On a 1:3 leveraged position held 10 months, dividend income partially offsets the margin carry cost. You are being paid to wait while the thesis plays out — a structural advantage that pure commodity trades like crude futures or leveraged ETFs do not offer.</p>
+
+  <div class="green-box">
+    <div class="gn-title">✓ Why Equity Majors Beat Pure Crude Plays</div>
+    <div class="gn-body">
+      Leveraged crude ETFs (UCO, BOIL) reset daily — contango decay destroys long-hold performance over 10 months. WTI futures require active roll management and generate no income. Deep ITM options have defined loss but time decay. <strong>XOM/CVX with margin gives 1:2–1:3 leverage with dividend cushion, no decay, and a business whose fundamentals improve in every scenario except rapid Hormuz resolution.</strong>
+    </div>
+  </div>
+
+  <h2>The Leveraged <span class="ah">DCA Framework</span></h2>
+
+  <p>This is a 10-month thesis, not a single-entry trade. DCA into a leveraged position means each entry averages your cost basis while the thesis develops — and the market's tendency to reprice on verbal interventions rather than physical data creates repeated entry opportunities across the hold period.</p>
+
+  <div class="lev-grid">
+    <div class="lev-cell">
+      <div class="lev-head">1:3 Leverage — Recommended</div>
+      <div class="lev-row"><span class="lev-k">Exposure per $1 deployed</span><span class="lev-v am">$3 of position</span></div>
+      <div class="lev-row"><span class="lev-k">10% XOM/CVX move</span><span class="lev-v up">+30% on capital</span></div>
+      <div class="lev-row"><span class="lev-k">Overnight gap −8%</span><span class="lev-v dn">−24% on capital</span></div>
+      <div class="lev-row"><span class="lev-k">Margin call threshold</span><span class="lev-v am">Manageable w/ DCA</span></div>
+      <div class="lev-row"><span class="lev-k">Underlying sizing</span><span class="lev-v">5–7% of total portfolio</span></div>
+      <div class="lev-row"><span class="lev-k">Verdict</span><span class="lev-v up">✓ Thesis-appropriate</span></div>
+    </div>
+    <div class="lev-cell red-top">
+      <div class="lev-head">1:5 Leverage — Aggressive</div>
+      <div class="lev-row"><span class="lev-k">Exposure per $1 deployed</span><span class="lev-v am">$5 of position</span></div>
+      <div class="lev-row"><span class="lev-k">10% XOM/CVX move</span><span class="lev-v up">+50% on capital</span></div>
+      <div class="lev-row"><span class="lev-k">Overnight gap −8%</span><span class="lev-v dn">−40% on capital</span></div>
+      <div class="lev-row"><span class="lev-k">Margin call threshold</span><span class="lev-v dn">Tight · Gap risk high</span></div>
+      <div class="lev-row"><span class="lev-k">Underlying sizing</span><span class="lev-v dn">Max 2–3% of portfolio</span></div>
+      <div class="lev-row"><span class="lev-k">Verdict</span><span class="lev-v dn">⚠ Size very small only</span></div>
+    </div>
+  </div>
+
+  <h3>The Four DCA Tranches</h3>
+
+  <div class="dca-list">
+    <div class="dca-item">
+      <div class="dca-num">1</div>
+      <div>
+        <div class="dca-phase">Mar 10, 2026 — False Signal Selloff</div>
+        <div class="dca-desc">WTI −12% on a false Navy escort claim that the White House denied within hours. No physical supply picture changed. Classic verbal-intervention mispricing.</div>
+        <div class="dca-action">→ Deploy 25% of allocation. Begin 1:3 leveraged position.</div>
+      </div>
+    </div>
+    <div class="dca-item">
+      <div class="dca-num">2</div>
+      <div>
+        <div class="dca-phase">Apr 2026 — SPR Release Announced</div>
+        <div class="dca-desc">IEA coordinated stockpile release will temporarily suppress prices. The 1.2B barrel reserve buys 30–60 days, not months. Structural disruption unchanged.</div>
+        <div class="dca-action">→ Deploy 25% of allocation into the SPR-driven dip.</div>
+      </div>
+    </div>
+    <div class="dca-item">
+      <div class="dca-num">3</div>
+      <div>
+        <div class="dca-phase">May–Jun 2026 — Diplomatic Noise</div>
+        <div class="dca-desc">False ceasefire signals or early negotiation headlines will generate selling. Iran leadership is still forming. No credible counterpart for months. Watch Kpler data, not headlines.</div>
+        <div class="dca-action">→ Deploy 25% on any sharp diplomatic-headline dip.</div>
+      </div>
+    </div>
+    <div class="dca-item">
+      <div class="dca-num">4</div>
+      <div>
+        <div class="dca-phase">Flex — Best Entry Remaining</div>
+        <div class="dca-desc">Reserve 25% for the highest-conviction entry opportunity across the hold period. No obligation to deploy — patience is a position.</div>
+        <div class="dca-action">→ Deploy only on genuine mispricing. Otherwise hold as dry powder.</div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Global Impact — <span class="ah">Who Bears the Cost</span></h2>
+
+  <p>The Hormuz closure is not primarily a US problem — it is an Asian energy crisis. In 2024, 84% of crude oil and condensate shipments through the strait were destined for Asian markets. China, India, Japan, and South Korea accounted for approximately 70% of all flows. Japan and South Korea obtain roughly 95% of their crude from Middle Eastern sources. India faces simultaneous physical and financial shock — 60% of its oil imports and 53% of its LNG come from the Gulf, and much of that LNG is Brent-indexed, meaning a crude spike simultaneously raises LNG contract prices.</p>
+
+  <p>China is exposed but more flexible — it holds 7.6 million tons of LNG inventory as of late February and is pivoting further toward Russian crude to offset lost Gulf barrels. But even China cannot absorb the gap without tightening the Pacific basin for all buyers. Europe gets 12–14% of its LNG from Qatar through the strait — and European natural gas prices rose 63% last week alone, the largest weekly gain since Russia's invasion of Ukraine.</p>
+
+  <p><strong>None of this affects XOM or CVX production.</strong> Permian output is not stranded. US shale is not subject to Gulf shipping routes. The disruption that harms Asia's refiners is the same disruption that creates premium pricing for non-Gulf barrels — exactly what XOM and CVX produce.</p>
+
+  <div class="red-box">
+    <div class="rb-title">⚠ The One Condition That Ends the Trade</div>
+    <div class="rb-body">A genuine, verified ceasefire with confirmed tanker transit resumption would materially change the supply picture. This is different from verbal interventions, false claims, or diplomatic noise. Monitor Kpler vessel tracking data — actual tankers moving through the strait, not headlines. If 50%+ of pre-crisis commercial traffic resumes over five consecutive days, re-evaluate position sizing and begin staged exit.</div>
+  </div>
+
+  <h2>The <span class="ah">10-Month Timeline</span></h2>
+
+  <p>The thesis horizon of January 2027 aligns with the natural administration transition window — the most realistic diplomatic reset point given the political landscape. Each phase below maps the expected environment and position management logic.</p>
+
+  <table class="data-tbl">
+    <thead><tr>
+      <th>Phase</th><th>Window</th><th>Environment</th><th>Action</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="am">Build</td><td>Mar–Apr 2026</td><td>Strait closed · false signals frequent · SPR discussions begin</td><td class="pos">Tranches 1 & 2</td></tr>
+      <tr><td class="am">Hold</td><td>May–Jul 2026</td><td>SPR deployed · temporary relief · Iran leadership forming</td><td class="pos">Tranche 3 on dip</td></tr>
+      <tr><td class="am">Monitor</td><td>Aug–Oct 2026</td><td>Kpler data key · early election cycle pressure on administration</td><td class="neu">Reassess leverage</td></tr>
+      <tr><td class="am">Exit</td><td>Nov 2026–Jan 2027</td><td>Administration transition · diplomatic reset window opens</td><td class="neg">Stage out by tranche</td></tr>
+    </tbody>
+  </table>
+
+  <div class="conclusion">
+    <h3>The Verdict</h3>
+    <p>The Strait of Hormuz is closed. 150 ships are anchored outside it. Iraq is producing 1.3 million barrels per day instead of 4.3 million. Qatar has declared force majeure on LNG. The Energy Secretary posted a false claim about a Navy escort and WTI dropped 12% in a single session on nothing but words. <strong>That 12% drop is the entry point this thesis was built for.</strong> ExxonMobil and Chevron have zero Hormuz exposure, 3–4% dividend yields that cushion carry costs, and structurally low breakevens. At 1:3 leverage, DCA across four tranches over 10 months, sized at 5–7% of total portfolio in underlying — this is the thesis, this is the position, and the clock started February 28, 2026.</p>
+  </div>
+
+</article>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+  <div class="sb-card">
+    <div class="sb-head">Thesis Snapshot</div>
+    <div class="sb-body">
+      <div class="sb-row"><span class="sb-k">Position</span><span class="sb-v up">LONG XOM / CVX</span></div>
+      <div class="sb-row"><span class="sb-k">Core Leverage</span><span class="sb-v am">1:3 (DCA)</span></div>
+      <div class="sb-row"><span class="sb-k">Aggressive</span><span class="sb-v neu">1:5 (max 2–3%)</span></div>
+      <div class="sb-row"><span class="sb-k">Horizon</span><span class="sb-v">10 months</span></div>
+      <div class="sb-row"><span class="sb-k">Exit Window</span><span class="sb-v">Nov 2026–Jan 2027</span></div>
+      <div class="sb-row"><span class="sb-k">Trigger</span><span class="sb-v dn">Hormuz closed Feb 28</span></div>
+    </div>
+  </div>
+
+  <div class="sb-card">
+    <div class="sb-head">Scenarios (1:3 Return)</div>
+    <div class="sc-wrap">
+      <div class="sc-row sc-bull">
+        <div class="sc-label">Bull — Prolonged Closure (45%)</div>
+        <div class="sc-val">+105–180% on capital</div>
+        <div class="sc-sub">WTI $110–$140 · XOM/CVX +35–60%</div>
+      </div>
+      <div class="sc-row sc-base">
+        <div class="sc-label">Base — Slow Partial Re-open (40%)</div>
+        <div class="sc-val">+45–105% on capital</div>
+        <div class="sc-sub">WTI $85–$110 · XOM/CVX +15–35%</div>
+      </div>
+      <div class="sc-row sc-bear">
+        <div class="sc-label">Bear — Rapid Resolution (15%)</div>
+        <div class="sc-val">−30–60% on capital</div>
+        <div class="sc-sub">WTI $65–$80 · XOM/CVX −10–20%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sb-card">
+    <div class="sb-head">Risk Register</div>
+    <div class="risk-section">
+      <div class="risk-row">
+        <div class="risk-top"><span>Rapid ceasefire</span><span class="risk-level low">Low–Med</span></div>
+        <div class="risk-bg"><div class="risk-fill-a" style="width:30%"></div></div>
+      </div>
+      <div class="risk-row">
+        <div class="risk-top"><span>SPR suppression (temp)</span><span class="risk-level med">Medium</span></div>
+        <div class="risk-bg"><div class="risk-fill-a" style="width:55%"></div></div>
+      </div>
+      <div class="risk-row">
+        <div class="risk-top"><span>False headline selloffs</span><span class="risk-level high">High</span></div>
+        <div class="risk-bg"><div class="risk-fill-g" style="width:80%"></div></div>
+      </div>
+      <div class="risk-row">
+        <div class="risk-top"><span>Demand destruction</span><span class="risk-level low">Low</span></div>
+        <div class="risk-bg"><div class="risk-fill-a" style="width:22%"></div></div>
+      </div>
+      <div class="risk-row">
+        <div class="risk-top"><span>Alt routes scale-up</span><span class="risk-level low">Low</span></div>
+        <div class="risk-bg"><div class="risk-fill-a" style="width:18%"></div></div>
+      </div>
+    </div>
+    <div style="padding: 0 14px 12px; font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--text-dim);">
+      Note: False headline selloffs are high-probability but represent <span style="color:var(--green);font-weight:700;">entry opportunities</span>, not risks to the thesis.
+    </div>
+  </div>
+
+  <div class="sb-card">
+    <div class="sb-head">Supply Numbers</div>
+    <div class="sb-body">
+      <div class="sb-row"><span class="sb-k">Hormuz daily oil</span><span class="sb-v dn">~20M bpd halted</span></div>
+      <div class="sb-row"><span class="sb-k">Iraq (pre-crisis)</span><span class="sb-v neu">4.3M bpd</span></div>
+      <div class="sb-row"><span class="sb-k">Iraq (current)</span><span class="sb-v dn">1.3M bpd</span></div>
+      <div class="sb-row"><span class="sb-k">Saudi alt route</span><span class="sb-v neu">Max 7M bpd</span></div>
+      <div class="sb-row"><span class="sb-k">IEA SPR reserve</span><span class="sb-v neu">1.2B barrels</span></div>
+      <div class="sb-row"><span class="sb-k">Qatar LNG status</span><span class="sb-v dn">Force majeure</span></div>
+    </div>
+  </div>
+
+  <div class="sb-card">
+    <div class="sb-head alt">NWC Doctrine</div>
+    <div class="doctrine">"The thesis does not change because the headline changed. The thesis changes when the data changes."</div>
+  </div>
+
+</aside>
+</div>
+
+<!-- FOOTNOTE -->
+<div class="footnote">
+  <div class="fn-title">Disclaimer</div>
+  <p>New World Capital is a personal investment fund. Nothing published here constitutes investment advice or a solicitation to buy or sell any security, commodity, or financial instrument. All research is published for archival and educational purposes only. Leveraged positions carry significant risk of loss including loss exceeding initial capital. The scenarios described are hypothetical and not guaranteed. Past thesis performance does not guarantee future results. All figures as of March 10, 2026. Consult a licensed financial advisor before making investment decisions.</p>
+</div>
+
+</body>
+</html>
