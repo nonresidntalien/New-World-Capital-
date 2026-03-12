@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New World Capital — Research Archive</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #0a0906;
+    --bg2:       #110f0b;
+    --surface:   #141210;
+    --surface2:  #1c1a17;
+    --border:    rgba(255,220,100,0.06);
+    --border2:   rgba(255,220,100,0.13);
+    --gold:      #c8922a;
+    --gold-b:    #e8b84b;
+    --gold-dim:  rgba(200,146,42,0.08);
+    --gold-rim:  rgba(200,146,42,0.22);
+    --red:       #c0272d;
+    --red-dim:   rgba(192,39,45,0.08);
+    --red-rim:   rgba(192,39,45,0.25);
+    --green:     #2e9e6a;
+    --green-dim: rgba(46,158,106,0.08);
+    --green-rim: rgba(46,158,106,0.25);
+    --blue:      #3a78c4;
+    --blue-dim:  rgba(58,120,196,0.08);
+    --blue-rim:  rgba(58,120,196,0.25);
+    --silver:    #7aaac8;
+    --silver-dim:rgba(122,170,200,0.08);
+    --silver-rim:rgba(122,170,200,0.25);
+    --text:      #c8c2b8;
+    --text-dim:  #706a60;
+    --text-bright:#f0ead8;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* TICKER */
+  .ticker-wrap {
+    background: #110e08;
+    border-bottom: 1px solid var(--border2);
+    overflow: hidden; height: 30px;
+    display: flex; align-items: center;
+  }
+  .ticker-badge {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px; letter-spacing: .18em;
+    color: var(--bg); background: var(--gold);
+    padding: 0 14px; height: 100%;
+    display: flex; align-items: center;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .ticker-inner {
+    display: flex;
+    animation: tick 50s linear infinite;
+    white-space: nowrap;
+  }
+  .tick-item {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px; padding: 0 24px;
+    color: rgba(200,146,42,0.75);
+    border-right: 1px solid var(--border2);
+    letter-spacing: .04em;
+  }
+  .tick-item b { color: var(--gold-b); margin-right: 4px; }
+  .tick-item .up  { color: #6ecc96; }
+  .tick-item .dn  { color: #e07070; }
+  @keyframes tick { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+  /* NAV */
+  nav {
+    border-bottom: 1px solid var(--border2);
+    padding: 0 52px;
+    display: flex; justify-content: space-between; align-items: center;
+    height: 52px;
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px; letter-spacing: .12em;
+    color: var(--text-bright);
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links {
+    display: flex; gap: 28px; list-style: none;
+  }
+  .nav-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: .16em;
+    text-transform: uppercase; text-decoration: none;
+    color: var(--text-dim);
+    transition: color .15s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px; font-weight: 700;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--bg); background: var(--gold);
+    padding: 3px 10px;
+  }
+
+  /* HERO */
+  .hero {
+    max-width: 1100px; margin: 0 auto;
+    padding: 64px 52px 48px;
+    border-bottom: 1px solid var(--border2);
+    position: relative; overflow: hidden;
+  }
+  .hero::after {
+    content: 'NWC';
+    position: absolute; right: 20px; top: 0;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 260px; line-height: 1;
+    color: rgba(200,146,42,0.03);
+    pointer-events: none;
+  }
+  .hero-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--gold); border: 1px solid var(--gold-rim);
+    display: inline-block; padding: 4px 12px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: .95; color: var(--text-bright);
+    letter-spacing: .01em; margin-bottom: 14px;
+  }
+  .hero h1 em { color: var(--gold); font-style: normal; }
+  .hero-sub {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic; font-size: 18px;
+    font-weight: 300; color: var(--text-dim);
+    max-width: 580px; line-height: 1.5;
+  }
+
+  /* STATS ROW */
+  .stats-row {
+    max-width: 1100px; margin: 0 auto;
+    padding: 0 52px;
+    display: grid; grid-template-columns: repeat(4,1fr);
+    gap: 1px; background: var(--border2);
+    border-bottom: 1px solid var(--border2);
+  }
+  .stat {
+    background: var(--surface);
+    padding: 14px 18px;
+    position: relative;
+  }
+  .stat::after {
+    content:''; position:absolute;
+    top:0;left:0;right:0; height:2px;
+  }
+  .stat-g::after  { background:var(--gold); }
+  .stat-r::after  { background:var(--red); }
+  .stat-b::after  { background:var(--blue); }
+  .stat-gr::after { background:var(--green); }
+  .stat-lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7.5px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--text-dim);
+    margin-bottom: 4px;
+  }
+  .stat-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px; font-weight: 700;
+    color: var(--text-bright); line-height: 1;
+  }
+  .stat-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px; margin-top: 3px;
+  }
+  .up  { color: var(--green); }
+  .dn  { color: var(--red); }
+  .gld { color: var(--gold-b); }
+  .neu { color: var(--text-dim); }
+
+  /* MAIN LAYOUT */
+  .main {
+    max-width: 1100px; margin: 0 auto;
+    padding: 48px 52px;
+    display: grid; grid-template-columns: 1fr 280px;
+    gap: 52px; align-items: start;
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px; font-weight: 700;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--text-dim);
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 22px;
+  }
+  .section-label::after {
+    content:''; flex:1; height:1px;
+    background: var(--border2);
+  }
+
+  /* ARTICLE CARDS */
+  .cards { display: flex; flex-direction: column; gap: 2px; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    display: grid; grid-template-columns: 4px 1fr;
+    text-decoration: none; color: inherit;
+    transition: background .14s, border-color .14s;
+    position: relative; overflow: hidden;
+  }
+  .card:hover { background: var(--surface2); border-color: rgba(255,220,100,0.22); }
+  .card-bar { width: 4px; }
+  .card-bar-g  { background: var(--gold); }
+  .card-bar-r  { background: var(--red); }
+  .card-bar-b  { background: var(--blue); }
+  .card-bar-gr { background: var(--green); }
+  .card-bar-s  { background: var(--silver); }
+
+  .card-inner { padding: 20px 22px 18px; }
+
+  .card-meta {
+    display: flex; gap: 10px; align-items: center;
+    margin-bottom: 9px; flex-wrap: wrap;
+  }
+  .card-cat {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px; font-weight: 700;
+    letter-spacing: .18em; text-transform: uppercase;
+    padding: 2px 8px; border: 1px solid;
+  }
+  .cat-gold   { color: var(--gold);   border-color: var(--gold-rim);   background: var(--gold-dim); }
+  .cat-red    { color: #e07070;       border-color: var(--red-rim);    background: var(--red-dim); }
+  .cat-blue   { color: var(--blue);   border-color: var(--blue-rim);   background: var(--blue-dim); }
+  .cat-green  { color: var(--green);  border-color: var(--green-rim);  background: var(--green-dim); }
+  .cat-silver { color: var(--silver); border-color: var(--silver-rim); background: var(--silver-dim); }
+
+  .card-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px; color: var(--text-dim);
+    letter-spacing: .06em;
+  }
+  .card-pages {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px; color: var(--text-dim);
+    margin-left: auto;
+  }
+
+  .card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px; letter-spacing: .02em;
+    color: var(--text-bright); line-height: 1.05;
+    margin-bottom: 7px;
+  }
+  .card:hover .card-title { color: var(--gold-b); }
+
+  .card-deck {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic; font-size: 14px;
+    font-weight: 300; color: var(--text-dim);
+    line-height: 1.55; margin-bottom: 12px;
+  }
+
+  .card-tags {
+    display: flex; gap: 6px; flex-wrap: wrap;
+  }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px; color: var(--text-dim);
+    border: 1px solid var(--border2);
+    padding: 2px 7px; letter-spacing: .06em;
+  }
+
+  .card-verdict {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: .1em; padding: 5px 10px;
+    display: inline-block; margin-top: 10px;
+  }
+  .verdict-long   { color: var(--green);  border:1px solid var(--green-rim);  background:var(--green-dim); }
+  .verdict-short  { color: #e07070;       border:1px solid var(--red-rim);    background:var(--red-dim); }
+  .verdict-save   { color: var(--gold);   border:1px solid var(--gold-rim);   background:var(--gold-dim); }
+  .verdict-fund   { color: var(--blue);   border:1px solid var(--blue-rim);   background:var(--blue-dim); }
+  .verdict-research { color: var(--silver); border:1px solid var(--silver-rim); background:var(--silver-dim); }
+
+  /* FEATURED CARD */
+  .card-featured .card-title { font-size: 30px; }
+  .card-featured .card-deck  { font-size: 15px; }
+
+  /* DIVIDER */
+  .section-gap { margin-top: 40px; }
+
+  /* SIDEBAR */
+  .sidebar { position: sticky; top: 24px; }
+  .sb-card {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    margin-bottom: 14px;
+  }
+  .sb-head {
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border2);
+    padding: 8px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px; font-weight: 700;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--gold);
+  }
+  .sb-head.alt { color: var(--text-dim); }
+  .sb-body { padding: 12px 14px; }
+  .sb-row {
+    display: flex; justify-content: space-between;
+    align-items: baseline; padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+  }
+  .sb-row:last-child { border-bottom: none; }
+  .sb-k { color: var(--text-dim); font-size: 8.5px; }
+  .sb-v { color: var(--text-bright); font-weight: 700; }
+  .sb-v.gold { color: var(--gold-b); }
+  .sb-v.up   { color: var(--green); }
+  .sb-v.dn   { color: var(--red); }
+  .sb-v.neu  { color: var(--text-dim); }
+
+  /* MARKET PULSE */
+  .pulse-row {
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--border);
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 8px; align-items: center;
+  }
+  .pulse-row:last-child { border-bottom: none; }
+  .pulse-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; color: var(--text-dim);
+  }
+  .pulse-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 700;
+  }
+  .pulse-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7.5px; color: var(--text-dim);
+    margin-top: 1px;
+  }
+
+  /* ABOUT BLURB */
+  .about-blurb {
+    background: var(--gold-dim);
+    border: 1px solid var(--gold-rim);
+    padding: 14px;
+  }
+  .ab-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px; font-weight: 700;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 8px;
+  }
+  .ab-body {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; color: var(--text-dim);
+    line-height: 1.65;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border2);
+    padding: 22px 52px;
+    max-width: 1100px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 10px;
+  }
+  .footer-l {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px; letter-spacing: .12em;
+    color: var(--gold);
+  }
+  .footer-r {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px; color: var(--text-dim);
+    line-height: 1.7; text-align: right;
+  }
+
+  @media(max-width:860px){
+    .main { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+    nav, .hero, .stats-row, .main, footer { padding-left: 20px; padding-right: 20px; }
+    .stats-row { grid-template-columns: repeat(2,1fr); }
+    .nav-links { display: none; }
+  }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border2); }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(12px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  .hero  { animation: fadeUp .5s ease both .05s; }
+  .cards { animation: fadeUp .5s ease both .12s; }
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-badge">NWC</div>
+  <div style="overflow:hidden;flex:1;">
+    <div class="ticker-inner">
+      <div class="tick-item"><b>GOLD</b> $5,228/oz <span class="up">▲ +2.44%</span></div>
+      <div class="tick-item"><b>PAXG</b> $5,216 <span class="up">▲ +1.50%</span></div>
+      <div class="tick-item"><b>DJT</b> $10.27 <span class="dn">▼ −62.9% YoY</span></div>
+      <div class="tick-item"><b>OIL (WTI)</b> ~$120/bbl · Hormuz closed</div>
+      <div class="tick-item"><b>XOM</b> Long thesis active</div>
+      <div class="tick-item"><b>CVX</b> Long thesis active</div>
+      <div class="tick-item"><b>SILVER</b> $80+ <span class="up">▲ +150% in 2025</span></div>
+      <div class="tick-item"><b>USO</b> $107 <span class="up">▲ +49% YoY</span></div>
+      <div class="tick-item"><b>GOLD 25yr</b> <span class="up">+1,959% since 2001</span></div>
+      <div class="tick-item"><b>DJT Z-SCORE</b> 2.57 · F-SCORE <span class="dn">1/9</span></div>
+      <div class="tick-item"><b>CENTRAL BANKS</b> Gold buying +28% YoY Q3 2025</div>
+      <div class="tick-item"><b>NWC</b> Zero external capital · Est. 2020s</div>
+      <div class="tick-item"><b>GOLD</b> $5,228/oz <span class="up">▲ +2.44%</span></div>
+      <div class="tick-item"><b>PAXG</b> $5,216 <span class="up">▲ +1.50%</span></div>
+      <div class="tick-item"><b>DJT</b> $10.27 <span class="dn">▼ −62.9% YoY</span></div>
+      <div class="tick-item"><b>OIL (WTI)</b> ~$120/bbl · Hormuz crisis</div>
+      <div class="tick-item"><b>SILVER</b> $80+ · Industrial scarcity 5th yr deficit</div>
+      <div class="tick-item"><b>USO</b> $107 · Backwardation · Hormuz driven</div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">New World <span>Capital</span></div>
+  <ul class="nav-links">
+    <li><a href="#long">Long Theses</a></li>
+    <li><a href="#short">Short Theses</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#savings">Savings</a></li>
+    <li><a href="#fund">Fund</a></li>
+  </ul>
+  <div class="nav-tag">Research Archive</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">New World Capital · Published Research</div>
+  <h1>Research<br><em>Archive</em></h1>
+  <p class="hero-sub">Every thesis documented before it matures. Every position timestamped. Every reallocation explained. This is the live record of conviction in motion.</p>
+</div>
+
+<!-- STATS ROW -->
+<div class="stats-row">
+  <div class="stat stat-g">
+    <div class="stat-lbl">Articles Published</div>
+    <div class="stat-val">6</div>
+    <div class="stat-sub gld">3 long · 1 short · 2 research</div>
+  </div>
+  <div class="stat stat-gr">
+    <div class="stat-lbl">Active Long Theses</div>
+    <div class="stat-val">3</div>
+    <div class="stat-sub up">Oil · Gold · XOM/CVX</div>
+  </div>
+  <div class="stat stat-r">
+    <div class="stat-lbl">Active Short Theses</div>
+    <div class="stat-val">1</div>
+    <div class="stat-sub dn">DJT · F-Score 1/9</div>
+  </div>
+  <div class="stat stat-b">
+    <div class="stat-lbl">Fund Since</div>
+    <div class="stat-val">2020s</div>
+    <div class="stat-sub neu">Zero external capital</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div>
+
+    <!-- LONG THESES -->
+    <div id="long">
+      <div class="section-label">Long Theses</div>
+      <div class="cards">
+
+        <!-- OIL MAJORS -->
+        <a class="card card-featured" href="oil-majors-call-thesis.html">
+          <div class="card-bar card-bar-g"></div>
+          <div class="card-inner">
+            <div class="card-meta">
+              <span class="card-cat cat-gold">Macro · Commodities</span>
+              <span class="card-cat cat-gold">Geopolitics</span>
+              <span class="card-date">Mar 2026</span>
+              <span class="card-pages">8 pp</span>
+            </div>
+            <div class="card-title">The Oil Majors Call Thesis — XOM &amp; CVX</div>
+            <div class="card-deck">Why the closure of the Strait of Hormuz, structural underinvestment in upstream production, and the de-dollarization of energy markets create a generational entry point in ExxonMobil and Chevron.</div>
+            <div class="card-tags">
+              <span class="tag">XOM</span>
+              <span class="tag">CVX</span>
+              <span class="tag">WTI $120+</span>
+              <span class="tag">Hormuz</span>
+              <span class="tag">Energy Capex Collapse</span>
+              <span class="tag">DCA · 1:3 Leverage</span>
+            </div>
+            <div><span class="card-verdict verdict-long">↑ LONG · DCA IN PROGRESS</span></div>
+          </div>
+        </a>
+
+        <!-- GOLD / PAXG -->
+        <a class="card card-featured" href="gold-paxg-savings-thesis.html">
+          <div class="card-bar card-bar-g"></div>
+          <div class="card-inner">
+            <div class="card-meta">
+              <span class="card-cat cat-gold">Gold · Digital Assets</span>
+              <span class="card-cat cat-gold">On-Chain Savings</span>
+              <span class="card-date">Mar 10, 2026</span>
+              <span class="card-pages">8 pp</span>
+            </div>
+            <div class="card-title">The Timeless Hedge — Gold's Record &amp; Why PAXG Belongs in Your On-Chain Savings</div>
+            <div class="card-deck">From $252 in 1999 to $5,228 today. The 25-year crisis track record of gold, why stablecoins alone are not a savings strategy, and the case for PAXG over Tether Gold in a stablecoin-first portfolio.</div>
+            <div class="card-tags">
+              <span class="tag">PAXG</span>
+              <span class="tag">Gold $5,228</span>
+              <span class="tag">DAI</span>
+              <span class="tag">USDC</span>
+              <span class="tag">USDT</span>
+              <span class="tag">NYDFS · Brink's London</span>
+              <span class="tag">Inflation Hedge</span>
+            </div>
+            <div><span class="card-verdict verdict-save">◆ SAVINGS · CORE HOLD</span></div>
+          </div>
+        </a>
+
+        <!-- GOLD & SILVER FUNDAMENTALS -->
+        <a class="card card-featured" href="gold-silver-deep-dive-NWC.html">
+          <div class="card-bar card-bar-s"></div>
+          <div class="card-inner">
+            <div class="card-meta">
+              <span class="card-cat cat-gold">Gold · Silver</span>
+              <span class="card-cat cat-silver">Macro · Commodities</span>
+              <span class="card-date">Mar 2026</span>
+              <span class="card-pages">9 pp</span>
+            </div>
+            <div class="card-title">The Two Fundamentals — Gold's Monetary Signal &amp; Silver's Industrial Scarcity</div>
+            <div class="card-deck">Why gold is up 65% and silver 150% in 2025. Four structural drivers each, with historical proof. The case for holding both — and why they are not the same thesis.</div>
+            <div class="card-tags">
+              <span class="tag">Gold $5,228</span>
+              <span class="tag">Silver $80+</span>
+              <span class="tag">PAXG</span>
+              <span class="tag">Central Banks</span>
+              <span class="tag">Fiat Debasement</span>
+              <span class="tag">Green Transition</span>
+              <span class="tag">Supply Deficit</span>
+            </div>
+            <div><span class="card-verdict verdict-save">◆ RESEARCH · CORE THESIS</span></div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- SHORT THESES -->
+    <div id="short" class="section-gap">
+      <div class="section-label">Short Theses</div>
+      <div class="cards">
+
+        <!-- DJT -->
+        <a class="card card-featured" href="djt-short-thesis.html">
+          <div class="card-bar card-bar-r"></div>
+          <div class="card-inner">
+            <div class="card-meta">
+              <span class="card-cat cat-red">Short · Forensic</span>
+              <span class="card-cat cat-red">Narrative Collapse</span>
+              <span class="card-date">Mar 10, 2026</span>
+              <span class="card-pages">8 pp</span>
+            </div>
+            <div class="card-title">DJT: Six Counts Toward Zero — The Trump Media Short Thesis</div>
+            <div class="card-deck">$972K quarterly revenue. 772× price-to-sales. Altman Z-Score 2.57. Piotroski F-Score 1/9. A forensic autopsy of a company trading on political adjacency and the reflexive loop keeping it alive.</div>
+            <div class="card-tags">
+              <span class="tag">DJT $10.27</span>
+              <span class="tag">Revenue $972K</span>
+              <span class="tag">P/S 772×</span>
+              <span class="tag">Z-Score 2.57</span>
+              <span class="tag">F-Score 1/9</span>
+              <span class="tag">IV 69.68%</span>
+              <span class="tag">Put Spreads</span>
+            </div>
+            <div><span class="card-verdict verdict-short">↓ SHORT · ACTIVE · TARGET $4–8</span></div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- RESEARCH & ANALYSIS -->
+    <div id="research" class="section-gap">
+      <div class="section-label">Research &amp; Analysis</div>
+      <div class="cards">
+
+        <!-- USO -->
+        <a class="card card-featured" href="USO-Conscious-Analysis-NWC.html">
+          <div class="card-bar card-bar-s"></div>
+          <div class="card-inner">
+            <div class="card-meta">
+              <span class="card-cat cat-silver">Commodities · ETF</span>
+              <span class="card-cat cat-silver">Futures Structure</span>
+              <span class="card-date">Mar 2026</span>
+              <span class="card-pages">9 sec</span>
+            </div>
+            <div class="card-title">United States Oil Fund — A Conscious Investment Analysis</div>
+            <div class="card-deck">Everything you need to make a conscious decision on USO: what it actually is, how contango silently erodes returns, the 2020 structural collapse, and exactly when it makes sense to own it versus when it doesn't.</div>
+            <div class="card-tags">
+              <span class="tag">USO $107</span>
+              <span class="tag">WTI Crude</span>
+              <span class="tag">Contango</span>
+              <span class="tag">Backwardation</span>
+              <span class="tag">Futures Roll</span>
+              <span class="tag">Hormuz Crisis</span>
+              <span class="tag">0.60% ER</span>
+            </div>
+            <div><span class="card-verdict verdict-research">◈ RESEARCH · DECISION FRAMEWORK</span></div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- FUND -->
+    <div id="fund" class="section-gap">
+      <div class="section-label">Fund Documents</div>
+      <div class="cards">
+
+        <!-- BIO -->
+        <a class="card" href="new-world-capital-bio.html">
+          <div class="card-bar card-bar-b"></div>
+          <div class="card-inner">
+            <div class="card-meta">
+              <span class="card-cat cat-blue">Fund Profile</span>
+              <span class="card-cat cat-blue">Philosophy</span>
+              <span class="card-date">Mar 2026</span>
+            </div>
+            <div class="card-title">New World Capital — Fund Profile &amp; Investment Philosophy</div>
+            <div class="card-deck">The mandate, the doctrine, and the five investment pillars: macro geopolitics, digital assets, hard asset preservation, short selling, and reflexive loop exploitation. Built from scratch with zero external capital.</div>
+            <div class="card-tags">
+              <span class="tag">About</span>
+              <span class="tag">Mandate</span>
+              <span class="tag">Philosophy</span>
+              <span class="tag">Research Doctrine</span>
+            </div>
+            <div><span class="card-verdict verdict-fund">◈ FUND DOCUMENT</span></div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="about-blurb sb-card">
+      <div class="sb-head">New World Capital</div>
+      <div style="padding:14px;">
+        <div class="ab-title">About</div>
+        <div class="ab-body">A sovereign investment archive. Zero external capital. Every position documented before it matures — not after. We study emerging realities early, deploy capital with clarity, and record what the market is becoming.</div>
+      </div>
+    </div>
+
+    <div class="sb-card">
+      <div class="sb-head">Market Pulse — Mar 2026</div>
+      <div class="pulse-row">
+        <div>
+          <div class="pulse-name">Gold Spot</div>
+          <div class="pulse-sub">Hormuz rally · +2.44% today</div>
+        </div>
+        <div>
+          <div class="pulse-val gld">$5,228</div>
+          <div class="pulse-sub up">▲ +$124.70</div>
+        </div>
+      </div>
+      <div class="pulse-row">
+        <div>
+          <div class="pulse-name">PAXG (Ethereum)</div>
+          <div class="pulse-sub">1:1 gold track · ERC-20</div>
+        </div>
+        <div>
+          <div class="pulse-val gld">$5,216</div>
+          <div class="pulse-sub up">▲ +1.50%</div>
+        </div>
+      </div>
+      <div class="pulse-row">
+        <div>
+          <div class="pulse-name">Silver Spot</div>
+          <div class="pulse-sub">5th yr deficit · +150% in 2025</div>
+        </div>
+        <div>
+          <div class="pulse-val" style="color:var(--silver)">$80+</div>
+          <div class="pulse-sub up">▲ Elevated</div>
+        </div>
+      </div>
+      <div class="pulse-row">
+        <div>
+          <div class="pulse-name">WTI Crude / USO</div>
+          <div class="pulse-sub">Hormuz closure · backwardation</div>
+        </div>
+        <div>
+          <div class="pulse-val up">~$120</div>
+          <div class="pulse-sub up">▲ Elevated</div>
+        </div>
+      </div>
+      <div class="pulse-row">
+        <div>
+          <div class="pulse-name">DJT (Trump Media)</div>
+          <div class="pulse-sub">Short thesis active</div>
+        </div>
+        <div>
+          <div class="pulse-val dn">$10.27</div>
+          <div class="pulse-sub dn">▼ −62.9% YoY</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sb-card">
+      <div class="sb-head">Active Positions</div>
+      <div class="sb-body">
+        <div class="sb-row"><span class="sb-k">XOM / CVX</span><span class="sb-v up">Long · DCA</span></div>
+        <div class="sb-row"><span class="sb-k">Gold / PAXG</span><span class="sb-v gold">Core hold</span></div>
+        <div class="sb-row"><span class="sb-k">Oil (leveraged)</span><span class="sb-v up">1:3 · DCA</span></div>
+        <div class="sb-row"><span class="sb-k">DJT</span><span class="sb-v dn">Short · Puts</span></div>
+        <div class="sb-row"><span class="sb-k">DAI / USDC / USDT</span><span class="sb-v neu">Stablecoin base</span></div>
+      </div>
+    </div>
+
+    <div class="sb-card">
+      <div class="sb-head alt">Doctrine</div>
+      <div style="padding:12px 14px;display:flex;flex-direction:column;gap:10px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-dim);line-height:1.65;padding-bottom:10px;border-bottom:1px solid var(--border);">"We do not follow the market. We document what it is becoming."</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-dim);line-height:1.65;padding-bottom:10px;border-bottom:1px solid var(--border);">"Every thesis documented before it matures — not after."</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-dim);line-height:1.65;">"Maximum clarity. Minimum consensus."</div>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<footer>
+  <div class="footer-l">New World Capital</div>
+  <div class="footer-r">
+    Not investment advice · Archival and educational purposes only<br>
+    All investments carry risk of loss · March 2026
+  </div>
+</footer>
+
+</body>
+</html>
